@@ -62,9 +62,20 @@
             margin-top: 15px;
         }
 
+        .extra-content-collapse {
+            display: block;
+            text-align: center;
+            /* position: absolute;
+            bottom: 15px;
+            right: 15px; */
+        }
         .tile.open .extra-content {
             display: block;
         }
+
+        .tile.open .extra-content-collapse {
+            display: none;
+        } 
 
         footer {
             margin-top: 30px;
@@ -84,8 +95,8 @@
     </script>
 </head>
 <body>
-    <h1>👋 <img src="https://avatars.githubusercontent.com/u/10540209?v=4" alt="Profile Picture" style="width: 40px; height: 40px; border-radius: 50%; margin-top: 20px;"> Welcome to My Projects Page!</h1>
-    <p>I like going wide and deep in many topics (and connect it all together).</p>
+    <h1>👋 <img src="https://avatars.githubusercontent.com/u/10540209?v=4" alt="Profile Picture" style="width: 40px; height: 40px; border-radius: 50%; margin-top: 20px;"> Welcome to my projects page!</h1>
+    <p>I like going wide and deep across domains (and connect it all together).</p>
 
     <!-- Social Links Section -->
     <div class="social-links">
@@ -100,23 +111,27 @@
 
     <n2>~</n2>
 
-    <h2 class="section-title">🛠️ Active Personal Projects</h2>
+    <h2 class="section-title">🛠️ Active Personal Projects (2024 +)</h2>
     <div class="tiles">
         <div class="tile">
-            <h3>Cloud Native ComfyUI</h3>
-            <p>A deconstructed implementation of ComfyUI (a popular tool for AI generation workflows) for cloud native GPU operations.</p>
+            <h3>Vision OS App</h3>
+            <p>Diving into spatial computing, augmented reality (AR), and AI with my first Vision OS app. A simple 3D graph visualizer called "Shape of μ".</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1mJfX5jzDFyyxzjPYH77QSHcsMrPKqTqs/view?usp=share_link" target="_blank">Graph visualizer "Shape of μ" demo</a></p>
             </div>
         </div>
         <div class="tile">
-            <h3>Vision OS App</h3>
-            <p>Diving into spatial computing, augmented reality (AR), and AI with my first Vision OS App. It's a simple 3D graph visualizer called "Shape of μ".</p>
+            <h3>Cloud Native ComfyUI</h3>
+            <p>A deconstructed implementation of ComfyUI (a popular tool for AI generation workflows) for cloud native GPU operations.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p>Check out the project on <a href="https://github.com/orgs/cloudNativeComfyUI/repositories" target="_blank">GitHub</a>.</p>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title">🐝 Accomplishments at IBM (non-client sensitive)</h2>
+    <h2 class="section-title">🐝 Accomplishments at IBM (non-client sensitive) (2018 - 2023)</h2>
     <div class="tiles">
         <div class="tile">
             <h3>Production AI Solutions</h3>
@@ -133,7 +148,7 @@
     </div>
 
     <!-- Research & Projects Section -->
-    <h2 class="section-title">🔬 Past Corporate Research Projects (non-client sensitive)</h2>
+    <h2 class="section-title">🔬 Past Corporate Research Projects (non-client sensitive) (2018 - 2023)</h2>
     <div class="tiles">
         <div class="tile">
             <h3>Conversational AI Kiosk</h3>
@@ -144,42 +159,56 @@
         <div class="tile">
             <h3>Auditable Network of Containers</h3>
             <p>Published defensible IP for transactions between non-trusting parties using auditable networks.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://priorart.ip.com/IPCOM/000260415/" target="_blank">Defensible IP Publication</a></p>
             </div>
         </div>
         <div class="tile">
             <h3>Boston Dynamics Spot Simulation</h3>
             <p>Created environmental simulations for Boston Dynamics Spot to enhance robotic capabilities.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://medium.com/learningreinforcementlearning/choosing-the-right-platform-to-begin-your-hands-on-journey-with-rl-c4110b6cd6d9" target="_blank">Article comparing simulation options</a></p>
             </div>
         </div>
         <div class="tile">
             <h3>Smart Locker</h3>
             <p>Designed and implemented an intelligent locker system for secure and efficient storage solutions.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1OIlLi5-eR8GW_JK1WOwp0IBWwSqyI-yk/view?usp=share_link" target="_blank">High-level System Layout</a></p>
+                <p><a href="https://drive.google.com/file/d/1E5p0YUCURi5miTk6z5-ifMhQhgitOBzV/view?usp=share_link" target="_blank">Demo: Remote transferability of ownership</a></p>
+                <p><a href="https://drive.google.com/file/d/1dy_kT05xjRRISFFPNLrObFgm5boWdBQB/view?usp=share_link" target="_blank">Demo: Full functioning system</a></p>
             </div>
         </div>
         <div class="tile">
             <h3>Psychological Health Assessment</h3>
-            <p>Developed tools for assessing psychological health using innovative AI-driven methodologies.</p>
+            <p>Developed tools for assessing psychological health using innovative AI-driven conversations and questions.</p>
             <div class="extra-content">
             </div>
         </div>
         <div class="tile">
             <h3>Vision-Based Robot Arm Motion</h3>
             <p>Engineered motion control systems for robot arms powered by vision technology.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1roLvM3g9X3i_loLfHJy_ZUNRs9dR5i8e/view?usp=share_link" target="_blank">Linear motion with vision detection</a></p>
+                <p><a href="https://drive.google.com/file/d/1vKjnC7vbihn1Y4InZO5P1HwpbeqXizlf/view?usp=share_link" target="_blank">Organic motion enhancement with dynamic target location</a></p>
+                <p><a href="https://drive.google.com/file/d/1mihBat5OWH42Ayyniazd7SKZEbJ9l5n4/view?usp=share_link" target="_blank">Organic motion with multiple targets</a></p> 
             </div>
         </div>
     </div>
 
      <!-- Nimbus POS Section -->
-     <h2 class="section-title">🚀 Nimbus POS: My First Startup Journey</h2>
+     <h2 class="section-title">🚀 Nimbus POS: My First Startup Journey (2015 - 2018)</h2>
      <div class="tiles">
          <div class="tile">
              <h3>What is Nimbus POS?</h3>
              <p>Nimbus POS was a SaaS platform designed for small cafes to manage orders, inventory, and customer interactions with intelligent, predictive features.</p>
+             <div class="extra-content-collapse">⌄</div>
              <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1HCL3jahzYfUjhxrt-ebgG3PPsUQ52dxU/view?usp=share_link" target="_blank">A retrospective</a></p>
             </div>
          </div>
          <div class="tile">
@@ -190,47 +219,119 @@
                  - Support for Canadian tax laws<br>
                  - Integrated loyalty programs and analytics
              </p>
+             <div class="extra-content-collapse">⌄</div>
              <div class="extra-content">
+                <p><a href="https://youtu.be/VP3wvpjcJM0" target="_blank">Full App Demo - Part 1 of 2</a></p>
+                <p><a href="https://youtu.be/O79xCnaun7c" target="_blank">Full App Demo - Part 2 of 2</a></p>
+                <p><a href="https://drive.google.com/file/d/1fPydiCI5zCRjxeKdRQJR9Ph1XloJaIY6/view?usp=share_link" target="_blank">Wireless Printing Demo</a></p>
+                <p><a href="https://drive.google.com/file/d/1rDxHn9L0Bx28u-ScBQsRknhiKt5pD7UA/view?usp=share_link" target="_blank">Dashboard Demo</a></p>
+                <p><a href="https://drive.google.com/file/d/1Obn2pkKJntMUH81Du727znu-p8DHWoUe/view?usp=share_link" target="_blank">System Setup illustration</a></p>
+                <p><a href="https://drive.google.com/file/d/1roLvM3g9X3i_loLfHJy_ZUNRs9dR5i8e/view?usp=share_link" target="_blank">Any Device illustration</a></p>
+
             </div>
          </div>
          <div class="tile">
              <h3>Achievements</h3>
-             <p>Bootstrapped the startup, acquired paying customers, and reached a stage where monthly recurring revenue exceeded operational costs. Successfully exited via data and client acquisition by Nōwn POS.</p>
+             <p>Bootstrapped the startup, acquired paying customers, and reached a stage where monthly recurring revenue exceeded operational costs. Exited via data and client acquisition by Nōwn POS.</p>
+             
              <div class="extra-content">
             </div>
          </div>
      </div>
 
     <!-- Personal Projects Section -->
-    <h2 class="section-title">🌟 Past Personal Projects</h2>
+    <h2 class="section-title">🌟 Past Personal Projects (2015 - 2018)</h2>
     <div class="tiles">
         <div class="tile">
-            <h3>Home Hub</h3>
+            <h3>Home Hub (Touch, Voice, Display)</h3>
             <p>Built an integrated home hub combining touch, voice, and display for seamless interaction.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1cCg2Qq0hldGRqbNxj0eJUU2gNubJufds/view?usp=share_link" target="_blank">Understanding the tiny bits (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1XUBHDCCLLLAbKMvyFNYOmpR5BavxQQSR/view?usp=share_link" target="_blank">The idea (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1EPghuJgr037ippVK3YgJ_AVRgm8RCL1_/view?usp=share_link" target="_blank">Taking the first step (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/18A18IxhY6mBAxasEEaP82I5yLv39H-U4/view?usp=share_link" target="_blank">Touch Demo (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1NWLFu4I0zkQCawtCfwskyyT7NrQgSWS0/view?usp=share_link" target="_blank">Sound Test with touch-based volume controls (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1yUrWBKNYkQwWNtHpIT7-Jh9_7DoprB36/view?usp=share_link" target="_blank">Custom clock and fonts (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1Pis7cHRqX7pUZ098j7OPPs-hqyzJbIqN/view?usp=share_link" target="_blank">Custom PCBs made from Shenzhen (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1XKlhkPl4nuXXsIp7V8m54a-AjPZrOkvc/view?usp=share_link" target="_blank">Display test on assembled custom PCB (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1_bQdFeLVwdiC8pCqSfiXekWE0Zm2VNsc/view?usp=share_link" target="_blank">Another display test on assembled custom PCB (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1sd_M0RqQNDtQraUOKFNEc4KoEQFexv7R/view?usp=share_link" target="_blank">Display writing test (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1S1Pp-ezPqQDGTjtNADIRyuPGBDIu8isy/view?usp=share_link" target="_blank">Display writing test 2 (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1yQPCeaVYpz9DXmOq2Nbpc-FgsMIf0FQi/view?usp=share_link" target="_blank">Full system prototype (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/12mAbmQkN9NI_uY95ChkTRu2ja1BCiO27/view?usp=share_link" target="_blank">Full system test (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1iwHnZKAgwOGGWBYdpJP5OGfLLQbLkHPt/view?usp=share_link" target="_blank">System mic test (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1XFECJHNYcR-xN1GewG01Kn07UpuKTqS_/view?usp=share_link" target="_blank">Voice assistant test (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/13N3qrEETlIxVk_r7Z79bngqIWut7UT_B/view?usp=share_link" target="_blank">Full system custom PCB with assembled components (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1uFXyzLZT-XDHF7v5l0jroMqr_cRWYZ54/view?usp=share_link" target="_blank">First system PCB batch order from Shenzhen (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1Mcdq9vf8jcMuMFrvGxuNhwc0buHvVhFh/view?usp=share_link" target="_blank">Display selection (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1YqFFRMAKp4jaUVPr2uSsiMWPx1Zs908n/view?usp=share_link" target="_blank">Display selected (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1Hzo_bofZAAFefREsiR-8RbSeoZvoqDOq/view?usp=share_link" target="_blank">Gesture controls test (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1c3I1FuOr0YrnjUvmWvEr9YL6t1k0yaFf/view?usp=share_link" target="_blank">Gesture controls test 2 (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1Vf2PGnn-BvflkurhvNnvu6t4NHFGhkfE/view?usp=share_link" target="_blank">Gesture controls test 3 (vid)</a></p>
+                <p><a href="https://drive.google.com/file/d/1qgq9jPAfnn_7SK4QDCmfwS4eLIryd_N-/view?usp=share_link" target="_blank">Assembled front panel prototype (img)</a></p>
+                <p><a href="https://drive.google.com/file/d/1EHZnN6R2-5y5j9mdFFdR9WSmidhjFyK_/view?usp=share_link" target="_blank">System concept (vid)</a></p>
             </div>
         </div>
         <div class="tile">
             <h3>Robotic Conference and Vision</h3>
             <p>Developed a system for robotic vision and conferencing, enabling advanced collaboration tools.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1UjuojkKvEBuopMuX8dnpzM7NnwiqLZwh/view?usp=share_link" target="_blank">Demo: Head-tracking robot-arm while on a call with myself</a></p>
             </div>
         </div>
         <div class="tile">
             <h3>Dynamic Retail E-Paper Labels</h3>
             <p>Designed e-paper labels for retail stores, allowing real-time dynamic updates.</p>
+            <div class="extra-content-collapse">⌄</div>
+            <div class="extra-content">
+                <div class="extra-content">
+                    <p><a href="https://drive.google.com/file/d/1TM9frK2fCzGKd4wJY2uTIIV4hYUMVlue/view?usp=share_link" target="_blank">Demo: Touch-enabled e-paper display retail pricing system</a></p>
+                    <p><a href="https://drive.google.com/file/d/1-ALj0MJ0i0F23ZbxmMRRUriPcFjxMRqe/view?usp=share_link" target="_blank">Dual e-paper display</a></p>
+                    <p><a href="https://drive.google.com/file/d/1mJqZzv2QSRtrrphDdFOFTcUmobPpxG7H/view?usp=share_link" target="_blank">Proximity sensor for on/off functionality</a></p>
+                    <p><a href="https://drive.google.com/file/d/1R8azAvXIoYUo7_UC683OWE_a2X5-3kzR/view?usp=share_link" target="_blank">Prototype enclosure</a></p>
+                    <p><a href="https://drive.google.com/file/d/1FLahKoRiS_Sqqh5kyOcnex9ofxni_cMw/view?usp=share_link" target="_blank">Screen in prototype encolsure</a></p>
+                    <p><a href="https://drive.google.com/file/d/1xT8Q1MkQ9cuBCnnWX9ep7mUdB4l29uA7/view?usp=share_link" target="_blank">Screen + Prox Sensor in proroty encolsure</a></p>
+
+                </div>
+            </div>
             <div class="extra-content">
             </div>
         </div>
         <div class="tile">
             <h3>Smart Surface Projection</h3>
             <p>Created a smart surface projection system for interactive and adaptive display applications.</p>
+            <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1Doq3Z5j-TNXmnA0HNkcIpKVopMMFWLJa/view?usp=share_link" target="_blank">Experiment: Robot arm + laser pico projector</a></p>
             </div>
         </div>
         <div class="tile">
             <h3>Video Transcript Analysis</h3>
-            <p>Developed tools for analyzing video transcripts, extracting insights and key data points.</p>
+            <p>Developed a web app (thegreatmind.org) for analyzing video transcripts, extracting insights and key data points.</p>
+            <div class="extra-content-collapse">⌄</div>
+            <div class="extra-content">
+                <p><a href="https://drive.google.com/file/d/1eUtyD_yUT9GtA45K7JsLwlgOEsYYC7jU/view?usp=share_link" target="_blank">Demo: Adding a 'great mind'</a></p>
+                <p><a href="https://drive.google.com/file/d/1UghIv7_kHoKtACreQpUXplT_sA2fkRZB/view?usp=share_link" target="_blank">Demo: Adding a new video artifact for a 'great mind'</a></p>
+                <p><a href="https://drive.google.com/file/d/1REuranF-ujx1KHDYLxSFaLBJFjm9cmoT/view?usp=share_link" target="_blank">Demo: Adding subtitles to a video artifact</a></p>
+                <p><a href="https://drive.google.com/file/d/15-271lY-pbLjXBBksI4Aqhm-dpWDrM64/view?usp=share_link" target="_blank">Demo: Correcting a subtitle</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education Section -->
+    <h2 class="section-title">🎓 Education</h2>
+    <div class="tiles">
+        <div class="tile">
+            <h3>MBA<br>Schulich School of Business, York University</h3>
+            <p>Focused on finance and entrepreneurship.</p>
+            <div class="extra-content">
+            </div>
+        </div>
+        <div class="tile">
+            <h3>Mech Eng<br>University of Waterloo</h3>
+            <p>Focused on robotics and aerodynamics. 4th year research on ornithopter / drone.</p>
             <div class="extra-content">
             </div>
         </div>
