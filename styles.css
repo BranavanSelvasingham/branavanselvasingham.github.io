@@ -1,0 +1,245 @@
+/* -------------------------- *
+ *         BASE STYLES       *
+ * -------------------------- */
+ :root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --tile-background: #ffffff;
+    --tile-border-color: #ccc;
+    --footer-background-color: #f4f4f4;
+    --title-color-light: #333; /* Dark gray for light mode */
+    --title-color-dark: #dfdddd; /* Light gray for dark mode */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+    --title-color: var(--title-color-light); /* Default title color */
+}
+
+
+h1 {
+    margin-top: 30px;
+}
+
+.social-links {
+    margin: 20px 0;
+}
+
+.social-links a {
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.section-title {
+    margin: 30px 0 10px;
+}
+
+.tiles {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.tile {
+    border: 2px solid var(--tile-border-color);
+    background-color: var(--tile-background);
+    border-radius: 8px;
+    width: 300px;
+    padding: 15px;
+    text-align: left;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.tile:hover {
+    transform: translateY(-5px);
+}
+
+.tile h3 {
+    margin-top: 0;
+}
+
+.extra-content {
+    display: none;
+    margin-top: 15px;
+}
+
+.extra-content-collapse {
+    display: block;
+    text-align: center;
+}
+
+.tile.open .extra-content {
+    display: block;
+}
+
+.tile.open .extra-content-collapse {
+    display: none;
+}
+
+footer {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: var(--footer-background-color);
+}
+
+hr {
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* ----------------------------- *
+ *         DARK MODE STYLES     *
+ * ----------------------------- */
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --tile-background: #1e1e1e;
+    --tile-border-color: #444;
+    --footer-background-color: #1a1a1a;
+    --title-color: var(--title-color-dark); /* Dark mode title color */
+}
+
+/* Make links stand out in dark mode */
+body.dark-mode a {
+    color: #a2d5f2; /* Adjust link color if desired */
+}
+
+/* Optional: style the toggle button */
+.dark-mode-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: 2px solid #ccc;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+.dark-mode-toggle:hover {
+    background-color: #ccc;
+}
+
+/* Adjust the dark-mode-toggle button look in dark mode */
+body.dark-mode .dark-mode-toggle {
+    color: #fff;
+    border-color: #777;
+}
+body.dark-mode .dark-mode-toggle:hover {
+    background-color: #444;
+}
+
+/* General Carousel Styles */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    /* Remove or comment out the fixed height */
+    /* height: 300px; */
+    height: auto; /* Let it expand based on content */
+}
+
+.carousel-track-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    position: relative;
+    /* Remove "height: 100%;" */
+    /* height: 100%; */
+    height: auto;
+    padding: 0 40px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    /* Remove "height: 100%;" */
+    /* height: 100%; */
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel-slide {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    /* Remove "height: 100%;" so it can grow */
+    /* height: 100%; */
+    height: auto;
+    width: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Let the iframe grow naturally */
+.carousel-slide iframe {
+    width: 100% !important;
+    height: auto !important; 
+    object-fit: contain;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+iframe {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Title Styling */
+.frame-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--title-color);
+}
+
+/* Smooth scrolling */
+.carousel-track-container {
+    scroll-behavior: smooth;
+}
+
+/* Subtle Chevron Indicators */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: rgba(62, 62, 62, 0.5); /* Subtle transparent color */
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: none; /* Makes chevrons non-clickable */
+}
+
+.carousel-button.prev {
+    left: 10px; /* Positioned slightly outside the track */
+}
+
+.carousel-button.next {
+    right: 10px; /* Positioned slightly outside the track */
+}
+
+.carousel-button:hover {
+    color: rgba(0, 0, 0, 0.8); /* Slightly darker on hover */
+}
