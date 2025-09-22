@@ -7,42 +7,80 @@
     <link rel="stylesheet" href="styles.css">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // No JS alignment needed for intro; handled purely by CSS grid now
             // Enable click-to-expand tile logic
             const tiles = document.querySelectorAll('.tile');
+
+            // Convert eager iframes in collapsed content to lazy (src -> data-src)
+            document.querySelectorAll('.extra-content iframe[src]').forEach(iframe => {
+                if (!iframe.dataset.src) {
+                    iframe.dataset.src = iframe.getAttribute('src');
+                    iframe.removeAttribute('src');
+                }
+            });
             tiles.forEach(tile => {
-                tile.addEventListener('click', function() {
-                    const isOpen = this.classList.toggle('open');
-                    
-                    if (isOpen) {
-                        // The tile just got expanded
-                        const iframes = this.querySelectorAll('iframe[data-src]');
-                        iframes.forEach(iframe => {
-                            // Only set src if it's not already set
-                            if (!iframe.src) {
-                                iframe.src = iframe.dataset.src;
-                            }
-                        });
-                    } else {
-                        const iframes = this.querySelectorAll('iframe[data-src]');
-                        iframes.forEach(iframe => {
-                            iframe.src = "";
-                        });
+                // Mark tiles with expandable content as toggleable
+                const hasExtra = tile.querySelector('.extra-content');
+                if (hasExtra) {
+                    tile.classList.add('toggleable');
+                    tile.setAttribute('tabindex', '0');
+                    tile.setAttribute('role', 'button');
+                    tile.setAttribute('aria-expanded', 'false');
+                }
+
+                const interactiveSelectors = ['a', 'button', 'iframe', 'audio', 'video'];
+
+                const toggleTile = (el) => {
+                    const wasOpen = el.classList.contains('open');
+                    const isOpen = el.classList.toggle('open');
+                    el.setAttribute('aria-expanded', String(isOpen));
+
+                    const contents = el.querySelectorAll('.extra-content');
+                    contents.forEach(content => {
+                        if (isOpen) {
+                            // Lazy-load any iframes
+                            const iframes = el.querySelectorAll('iframe[data-src]');
+                            iframes.forEach(iframe => {
+                                if (iframe.dataset.src) {
+                                    iframe.setAttribute('src', iframe.dataset.src);
+                                }
+                            });
+                            // Smooth expand height
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                        } else {
+                            const iframes = el.querySelectorAll('iframe[data-src]');
+                            iframes.forEach(iframe => {
+                                iframe.removeAttribute('src');
+                            });
+                            content.style.maxHeight = '0px';
+                        }
+                    });
+
+                    if (isOpen && !wasOpen) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                };
+
+                tile.addEventListener('click', function(event) {
+                    const target = event.target;
+                    // Ignore clicks originating from interactive elements
+                    if (target.closest(interactiveSelectors.join(','))) return;
+                    if (this.classList.contains('toggleable')) toggleTile(this);
+                });
+
+                tile.addEventListener('keydown', function(event) {
+                    if ((event.key === 'Enter' || event.key === ' ') && this.classList.contains('toggleable')) {
+                        event.preventDefault();
+                        toggleTile(this);
                     }
                 });
             });
 
-            // Implement dark mode toggle
-            // Always start in dark mode
-            document.body.classList.add('dark-mode');
-
-            // Then see if user saved "light" mode before
+            // Implement dark mode toggle with system preference
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
-                document.body.classList.remove('dark-mode');
-            } else {
-                // If user has no saved theme or it's 'dark', ensure we store 'dark'
-                localStorage.setItem('theme', 'dark');
-            }
+            const initialDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+            document.body.classList.toggle('dark-mode', initialDark);
 
             const toggleButton = document.querySelector('#dark-mode-toggle');
             toggleButton.addEventListener('click', function() {
@@ -56,11 +94,13 @@
                 }
             });
 
-            // // Check localStorage for saved theme
-            // const savedTheme = localStorage.getItem('theme');
-            // if (savedTheme === 'dark') {
-            //     document.body.classList.add('dark-mode');
-            // }
+            // React to system theme changes if user hasn't explicitly chosen
+            if (!savedTheme && window.matchMedia) {
+                const mq = window.matchMedia('(prefers-color-scheme: dark)');
+                mq.addEventListener('change', (e) => {
+                    document.body.classList.toggle('dark-mode', e.matches);
+                });
+            }
         });
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -71,13 +111,18 @@
                 const slides = Array.from(track.children);
                 const prevButton = carousel.querySelector('.carousel-button.prev');
                 const nextButton = carousel.querySelector('.carousel-button.next');
-                const slideWidth = slides[0].getBoundingClientRect().width;
+                let slideWidth = slides[0].getBoundingClientRect().width;
 
                 let currentSlide = 0;
 
+                const measure = () => {
+                    slideWidth = slides[0].getBoundingClientRect().width;
+                };
+
                 // Scroll to the target slide
                 const moveToSlide = (index) => {
-                    const offset = index * slideWidth;
+                    const clamped = Math.max(0, Math.min(index, slides.length - 1));
+                    const offset = clamped * slideWidth;
                     track.scrollTo({
                         left: offset,
                         behavior: 'smooth'
@@ -86,7 +131,8 @@
 
                 // Update current slide when navigation buttons are clicked
                 nextButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Prevent event bubbling
+                    event.stopPropagation();
+                    measure();
                     if (currentSlide < slides.length - 1) {
                         currentSlide++;
                         moveToSlide(currentSlide);
@@ -94,7 +140,8 @@
                 });
 
                 prevButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Prevent event bubbling
+                    event.stopPropagation();
+                    measure();
                     if (currentSlide > 0) {
                         currentSlide--;
                         moveToSlide(currentSlide);
@@ -107,32 +154,35 @@
                     const newSlideIndex = Math.round(scrollLeft / slideWidth);
                     currentSlide = newSlideIndex;
                 });
+
+                // Update on resize so offsets remain correct
+                window.addEventListener('resize', () => {
+                    measure();
+                    moveToSlide(currentSlide);
+                });
             });
         });
     </script>
 </head>
 <body>
     <!-- Toggle Button -->
-    <button id="dark-mode-toggle" class="dark-mode-toggle">🌓</button>
+    <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
 
-    <h1>👋 
-        <img src="https://avatars.githubusercontent.com/u/10540209?v=4" 
-             alt="Profile Picture" 
-             style="width: 40px; height: 40px; border-radius: 50%; margin-top: 20px;">
-        Welcome to my projects page!
-    </h1>
-    <p>I like going wide and deep across domains (and connect it all together).</p>
+    <div class="intro">
+        <h1>Welcome to my projects page!</h1>
+        <p>I like going wide and deep across domains (and connect it all together).</p>
+    </div>
 
     <!-- Social Links Section -->
     <div class="social-links">
-        <a href="https://x.com/0_branavan_1" target="_blank">🐦 X</a>
-        <a href="https://www.linkedin.com/in/branavanselvasingham" target="_blank">💼 LinkedIn</a>
-        <a href="https://medium.com/search?q=branavan+selvasingham" target="_blank">✍️ Medium</a>
+        <a href="https://x.com/0_branavan_1" target="_blank">X</a>
+        <a href="https://www.linkedin.com/in/branavanselvasingham" target="_blank">LinkedIn</a>
+        <a href="https://medium.com/search?q=branavan+selvasingham" target="_blank">Medium</a>
     </div>
     
     <hr>
 
-    <h2 class="section-title">🤖 Currently: VP, Head of AI and Product Engineering @ Zafin</h2>
+    <h2 class="section-title">Currently: VP, Head of AI and Product Engineering @ Zafin</h2>
     <div class="tiles">
         <div class="tile">
             <h3>A podcast with Microsoft's Head of Banking Strategy</h3>
@@ -156,7 +206,7 @@
         </div>
     </div>
 
-    <h2 class="section-title">🛠️ Active Personal Projects (2024 +)</h2>
+    <h2 class="section-title">Active Personal Projects (2024 +)</h2>
     <div class="tiles">
         <div class="tile">
             <h3>Vision OS App (Cubixel AI)</h3>
@@ -177,7 +227,7 @@
         </div>
     </div>
 
-    <h2 class="section-title">🐝 Accomplishments at IBM (non-client sensitive) (2018 - 2023)</h2>
+    <h2 class="section-title">Accomplishments at IBM (non-client sensitive) (2018 - 2023)</h2>
     <div class="tiles">
         <div class="tile">
             <h3>Production AI Solutions</h3>
@@ -194,7 +244,7 @@
     </div>
 
     <!-- Research & Projects Section -->
-    <h2 class="section-title">🔬 Past Corporate Research Projects (non-client sensitive) (2018 - 2023)</h2>
+    <h2 class="section-title">Past Corporate Research Projects (non-client sensitive) (2018 - 2023)</h2>
     <div class="tiles">
         <div class="tile">
             <h3>Conversational AI Kiosk</h3>
@@ -343,7 +393,7 @@
     </div>
 
     <!-- Nimbus POS Section -->
-    <h2 class="section-title">🚀 Nimbus POS: My First Startup Journey (2015 - 2018)</h2>
+    <h2 class="section-title">Nimbus POS: My First Startup Journey (2015 - 2018)</h2>
     <div class="tiles">
         <div class="tile">
             <h3>What is Nimbus POS?</h3>
@@ -478,7 +528,7 @@
     </div>
 
     <!-- Personal Projects Section -->
-    <h2 class="section-title">🌟 Past Personal Projects (2015 - 2018)</h2>
+    <h2 class="section-title">Past Personal Projects (2015 - 2018)</h2>
     <div class="tiles">
         <div class="tile">
             <h3>Home Hub (Touch, Voice, Display)</h3>
@@ -682,7 +732,7 @@
     </div>
 
     <!-- Education Section -->
-    <h2 class="section-title">🎓 Education</h2>
+    <h2 class="section-title">Education</h2>
     <div class="tiles">
         <div class="tile">
             <h3>MBA<br>Schulich School of Business, York University</h3>
