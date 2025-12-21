@@ -35,6 +35,11 @@
                     const isOpen = el.classList.toggle('open');
                     el.setAttribute('aria-expanded', String(isOpen));
 
+                    // Dismiss recent-update indicator on first open (only for this session)
+                    if (isOpen && !wasOpen && el.classList.contains('recent-update')) {
+                        el.classList.remove('recent-update');
+                    }
+
                     const contents = el.querySelectorAll('.extra-content');
                     contents.forEach(content => {
                         if (isOpen) {
@@ -173,7 +178,7 @@
     <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
 
     <div class="intro">
-        <h1>Welcome to my projects page!</h1>
+        <h1>Branavan Selvasingham</h1>
         <p>I like going wide and deep across domains (and connect it all together).</p>
     </div>
 
@@ -212,6 +217,15 @@
 
     <h2 class="section-title">Active Personal Projects (2024 +)</h2>
     <div class="tiles">
+        <div class="tile recent-update">
+            <h3>SO-101 Robot (LeRobot)</h3>
+            <p>Fun robotics exploration with SO-101; first hello-world movement and video.</p>
+            <div class="extra-content-collapse">⌄</div>
+            <div class="extra-content">
+                <blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">I was testing how well current models can directly control the <a href="https://twitter.com/hashtag/LeRobot?src=hash&amp;ref_src=twsrc%5Etfw">#LeRobot</a> SO-101 using tool calls, with only one camera mounted on the gripper for world perception and a goal loop (e.g., "pick up pawn" in this case).<br><br>Takeaway: These models are rapidly approaching embodied AI… <a href="https://t.co/AuYLGOFQgn">pic.twitter.com/AuYLGOFQgn</a></p>&mdash; Branavan Selvasingham (@0_branavan_1) <a href="https://twitter.com/0_branavan_1/status/2002733232618406200?ref_src=twsrc%5Etfw">December 21, 2025</a></blockquote>
+                <blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">A hello world of sorts with <a href="https://twitter.com/hashtag/LeRobot?src=hash&amp;ref_src=twsrc%5Etfw">#LeRobot</a> SO-101. Kinda late to the party because I burned out a motor as soon as I got it earlier 😅. Took some time to get the replacement and get back into it. <br><br>Really cool tech. Interested to see how much it can do. <a href="https://t.co/qwZ5vX5YB1">pic.twitter.com/qwZ5vX5YB1</a></p>&mdash; Branavan Selvasingham (@0_branavan_1) <a href="https://twitter.com/0_branavan_1/status/1969581327138591007?ref_src=twsrc%5Etfw">September 21, 2025</a></blockquote>
+            </div>
+        </div>
         <div class="tile">
             <h3>Vision OS App (Cubixel AI)</h3>
             <p>Diving into spatial computing, augmented reality (AR), and AI with my first Vision OS app. A simple 3D graph visualizer called "Shape of μ".</p>
@@ -227,14 +241,6 @@
             <div class="extra-content-collapse">⌄</div>
             <div class="extra-content">
                 <p>Check out the project <a href="https://www.cubixel.ai/diffusiondigest.html" target="_blank">here</a>.</p>
-            </div>
-        </div>
-        <div class="tile">
-            <h3>SO-101 Robot (LeRobot)</h3>
-            <p>Fun robotics exploration with SO-101; first hello-world movement and video.</p>
-            <div class="extra-content-collapse">⌄</div>
-            <div class="extra-content">
-                <blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">A hello world of sorts with <a href="https://twitter.com/hashtag/LeRobot?src=hash&amp;ref_src=twsrc%5Etfw">#LeRobot</a> SO-101. Kinda late to the party because I burned out a motor as soon as I got it earlier 😅. Took some time to get the replacement and get back into it. <br><br>Really cool tech. Interested to see how much it can do. <a href="https://t.co/qwZ5vX5YB1">pic.twitter.com/qwZ5vX5YB1</a></p>&mdash; Branavan Selvasingham (@0_branavan_1) <a href="https://twitter.com/0_branavan_1/status/1969581327138591007?ref_src=twsrc%5Etfw">September 21, 2025</a></blockquote>
             </div>
         </div>
     </div>
