@@ -163,6 +163,11 @@ body > .tiles {
 .tile.open {
     border-color: rgba(58,191,248,0.35);
 }
+
+.tile.toggleable.open {
+    grid-column: 1 / -1;
+}
+
 .tile.open .extra-content {
     max-height: 1500px;
     opacity: 1;
