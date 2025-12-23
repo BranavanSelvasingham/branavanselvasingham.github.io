@@ -228,6 +228,14 @@ body.dark-mode a { color: var(--accent); }
     cursor: pointer;
     backdrop-filter: blur(6px);
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    z-index: 100;
+}
+
+/* When tile edge gets too close to screen edge, let toggle scroll with content */
+@media (max-width: 1080px) {
+    .dark-mode-toggle {
+        position: absolute;
+    }
 }
 .dark-mode-toggle:hover {
     background-color: rgba(127, 127, 127, 0.16);
