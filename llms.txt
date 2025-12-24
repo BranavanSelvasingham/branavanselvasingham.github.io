@@ -1,0 +1,213 @@
+# Branavan Selvasingham
+
+> Personal portfolio and projects page for Branavan Selvasingham, an AI/ML engineering leader based in Toronto.
+
+## About
+
+Branavan Selvasingham is VP, Head of AI and Product Engineering at Zafin. He has a background spanning mechanical engineering (University of Waterloo) and business (MBA, Schulich School of Business). He enjoys going wide and deep across domains—robotics, AI/ML, product development, startups—and connecting them together.
+
+## Contact & Social
+
+- Website: https://www.branavan.com/
+- X/Twitter: https://x.com/0_branavan_1
+- LinkedIn: https://www.linkedin.com/in/branavanselvasingham
+- Medium: https://medium.com/search?q=branavan+selvasingham
+- GitHub: https://github.com/BranavanSelvasingham
+
+## Current Role
+
+**VP, Head of AI and Product Engineering @ Zafin**
+
+Leading AI strategy and product engineering for financial services technology. Notable public appearances:
+
+### Podcast with Microsoft's Head of Banking Strategy
+Discussed the future of AI in Financial Services and the overall Enterprise landscape with Tyler Pichach, Head of Banking Strategy at Microsoft.
+- Video: https://www.youtube.com/watch?v=jtcGHd4MaBc
+
+### Money 20/20 Presentation (2023)
+Presented at Money 20/20 at Microsoft's AI stage, sharing views and an early roadmap that has since been matured and executed.
+
+---
+
+## Active Personal Projects (2024+)
+
+### SO-101 Robot (LeRobot)
+Exploring robotics with the SO-101 robot arm from the LeRobot project by Hugging Face.
+
+**Update (December 2025) - LLM-Controlled Robot Arm:**
+Testing how well current AI models can directly control the LeRobot SO-101 using tool calls. Setup includes:
+- Single camera mounted on the gripper for world perception
+- Goal-based control loop (e.g., "pick up pawn")
+- Direct model-to-motor control via tool calls
+
+Takeaway: Current models are rapidly approaching embodied AI capabilities. The system successfully demonstrates vision-guided manipulation using only a wrist-mounted camera and natural language goals.
+
+Repository: https://github.com/BranavanSelvasingham/lerobot-llm-chess
+
+**First Hello World (September 2025):**
+Initial setup and movement tests with the SO-101. Experienced motor burnout early on, requiring replacement before continuing development.
+
+### Vision OS App - Cubixel AI
+First Vision OS app for Apple Vision Pro: "Shape of μ" - a 3D graph visualizer for spatial computing.
+- Website: https://www.cubixel.ai/graphvisualizer.html
+- Focus: Spatial computing, augmented reality (AR), and AI integration
+
+### Diffusion Digest - Cubixel AI
+A weekly newsletter summarizing the latest GitHub activities in diffusion-based generative AI repositories.
+- Website: https://www.cubixel.ai/diffusiondigest.html
+
+---
+
+## IBM Career (2018-2023)
+
+### Accomplishments
+- Built AI systems that served over 20 million users
+- Awarded 2022 Outstanding Technical Achievement Award (prestigious global IBM recognition) for work on conversational AI orchestration system
+
+### Research Projects (non-client sensitive)
+
+#### Conversational AI Kiosk
+Developed a kiosk system with animated emotive facial expressions for engaging user experiences. Combined NLP, computer vision, and real-time animation.
+
+#### Auditable Network of Containers
+Published defensible IP for secure transactions between non-trusting parties using auditable networks.
+- Publication: https://priorart.ip.com/IPCOM/000260415/
+
+#### Boston Dynamics Spot Simulation
+Created environmental simulations for Boston Dynamics Spot robot to enhance robotic capabilities. Compared various RL simulation platforms.
+- Article: https://medium.com/learningreinforcementlearning/choosing-the-right-platform-to-begin-your-hands-on-journey-with-rl-c4110b6cd6d9
+
+#### Smart Locker System
+Designed and implemented an intelligent locker system for secure and efficient storage solutions. Features include:
+- Remote transferability of ownership
+- Secure access control
+- Full system integration
+
+#### Psychological Health Assessment
+Developed AI-driven tools for assessing psychological health using innovative conversational approaches and adaptive questioning.
+
+#### Vision-Based Robot Arm Motion
+Engineered motion control systems for robot arms powered by computer vision:
+- Linear motion with real-time vision detection
+- Organic motion enhancement with dynamic target tracking
+- Multi-target motion planning
+
+---
+
+## Nimbus POS Startup (2015-2018)
+
+Founded and built Nimbus POS, a SaaS platform for small cafes to manage orders, inventory, and customer interactions.
+
+### Key Features
+- Predictive inventory management using ML
+- Intuitive UI with minimal clicks per order
+- Full compliance with Canadian tax laws
+- Integrated loyalty programs and analytics dashboard
+- Wireless printing system
+- Cross-platform support (any device)
+
+### Achievements
+- Bootstrapped to paying customers
+- Reached profitability (monthly recurring revenue exceeded operational costs)
+- Exited via data and client acquisition by Nōwn POS
+
+---
+
+## Past Personal Projects (2015-2018)
+
+### Home Hub (Touch, Voice, Display)
+Built an integrated smart home hub from scratch combining:
+- Capacitive touch interface with custom UI
+- Voice assistant integration
+- Custom display with clock and widgets
+- Gesture controls for hands-free operation
+- Custom PCBs manufactured in Shenzhen
+- Full hardware and software stack
+
+Technical details: Custom PCB design, embedded systems programming, touch sensor integration, microphone arrays, speaker systems.
+
+### Robotic Conference and Vision
+System for robotic vision and video conferencing:
+- Head-tracking robot arm that follows the user during video calls
+- Real-time face detection and tracking
+- Smooth servo-controlled motion
+
+### Dynamic Retail E-Paper Labels
+Designed e-paper labels for retail stores with real-time dynamic pricing updates:
+- Touch-enabled e-paper displays
+- Dual display configurations
+- Proximity sensor for power management
+- Custom enclosure prototypes
+
+### Smart Surface Projection
+Interactive projection system combining:
+- Robot arm for positioning
+- Laser pico projector
+- Adaptive display surfaces
+
+### Video Transcript Analysis - TheGreatMind.org
+Web application for analyzing video transcripts:
+- Add and manage "great minds" (thought leaders)
+- Automatic subtitle extraction
+- Subtitle correction interface
+- Insight extraction from video content
+
+---
+
+## Education
+
+### MBA - Schulich School of Business, York University
+Focus: Finance and Entrepreneurship
+
+### BASc Mechanical Engineering - University of Waterloo
+Focus: Robotics and Aerodynamics
+4th year research: Ornithopter/drone aerodynamics and flight mechanics
+
+---
+
+## Technical Interests & Skills
+
+### Domains
+- AI/ML (LLMs, Computer Vision, Reinforcement Learning, Diffusion Models)
+- Robotics (Motion control, Embodied AI, Manipulation)
+- Product Engineering & Leadership
+- Embedded Systems & Hardware
+- Full-stack Development
+- Spatial Computing / AR/VR
+
+### Philosophy
+"I like going wide and deep across domains (and connect it all together)"
+
+---
+
+## Optional: Detailed Project Descriptions
+
+For LLMs seeking deeper context on specific projects, additional details are available below.
+
+### SO-101 LLM Chess Project Details
+The lerobot-llm-chess project explores direct LLM control of a physical robot arm for chess piece manipulation:
+- Uses tool calling to translate high-level goals into motor commands
+- Single gripper-mounted camera provides visual feedback
+- Goal loop architecture: model receives image, reasons about goal, outputs motor commands
+- Demonstrates emergent spatial reasoning in foundation models
+- Open source: https://github.com/BranavanSelvasingham/lerobot-llm-chess
+
+### Nimbus POS Technical Stack
+- Frontend: Angular/Ionic for cross-platform mobile and tablet
+- Backend: Node.js with MongoDB
+- Real-time sync across devices
+- Thermal printer integration via custom protocol
+- Offline-first architecture with sync queue
+
+### Home Hub Technical Details
+- Microcontroller: ESP32 family for main compute
+- Display: ILI9341 or similar TFT with custom driver
+- Touch: Capacitive touch controller (MPR121)
+- Audio: I2S DAC for output, PDM microphone array
+- Housing: 3D printed enclosure
+- Power: USB-C with proper power management
+
+---
+
+*Last updated: December 2025*
+
