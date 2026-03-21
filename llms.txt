@@ -37,6 +37,10 @@ A bootstrapped restaurant POS platform that reached paying customers, exceeded o
 ### SO-101 Robot Experiments
 Hands-on exploration of embodied AI, robot control loops, and tool-using systems in the physical world.
 
+### Many Lives
+A simulation and agent orchestration prototype for managing multiple semi-autonomous actors in a shared world.
+Explores persistence, escalation, coordination, and policy-shaped behavior beyond isolated prompt-response loops.
+
 ### VisionOS / Shape of mu
 Spatial computing experiments and 3D graphing work using SwiftUI and RealityKit.
 
@@ -84,6 +88,13 @@ Fun robotics exploration with SO-101; first hello-world movement and video.
 Update (December 2025): tested direct model control of the LeRobot SO-101 using tool calls with a gripper-mounted camera and goal loop control.
 
 Repository: https://github.com/BranavanSelvasingham/lerobot-llm-chess
+
+### Many Lives
+Many Lives is a simulation and agent orchestration prototype built around a shared world with multiple semi-autonomous actors. The goal is to move beyond single-agent chat interactions and explore how agents persist over time, accumulate context, surface competing pressures, and continue acting inside a living system.
+
+The project focuses on orchestration through attention, escalation, memory, and policy rather than direct turn-by-turn control. It sits at the intersection of simulation design, agent architecture, and human oversight for systems that need to remain legible while multiple threads stay active at once.
+
+Project site: https://manylives-sim.branavan.com
 
 ### Vision OS App
 Diving into spatial computing, augmented reality (AR), and AI with a first Vision OS app: a simple 3D graph visualizer called "Shape of mu".
