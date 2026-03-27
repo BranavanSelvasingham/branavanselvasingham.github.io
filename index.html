@@ -266,6 +266,23 @@
             const initializeArchiveDisclosures = () => {
                 let disclosureCount = 0;
                 const tiles = document.querySelectorAll('.archive .tile');
+                const syncTileState = (tile, control, panel, shouldOpen) => {
+                    tile.classList.toggle('is-open', shouldOpen);
+                    control.setAttribute('aria-expanded', String(shouldOpen));
+                    panel.hidden = !shouldOpen;
+
+                    if (!shouldOpen) return;
+
+                    if (tile.classList.contains('recent-update')) {
+                        tile.classList.remove('recent-update');
+                    }
+                    if (window.twttr && typeof window.twttr.widgets?.load === 'function') {
+                        window.twttr.widgets.load(panel);
+                    }
+                    window.requestAnimationFrame(() => {
+                        window.dispatchEvent(new Event('resize'));
+                    });
+                };
 
                 tiles.forEach((tile) => {
                     const panel = tile.querySelector(':scope > .extra-content');
@@ -340,23 +357,41 @@
                     panel.hidden = true;
 
                     control.addEventListener('click', () => {
-                        const isOpen = tile.classList.toggle('is-open');
-                        control.setAttribute('aria-expanded', String(isOpen));
-                        panel.hidden = !isOpen;
-
-                        if (isOpen) {
-                            if (tile.classList.contains('recent-update')) {
-                                tile.classList.remove('recent-update');
-                            }
-                            if (window.twttr && typeof window.twttr.widgets?.load === 'function') {
-                                window.twttr.widgets.load(panel);
-                            }
-                            window.requestAnimationFrame(() => {
-                                window.dispatchEvent(new Event('resize'));
-                            });
-                        }
+                        syncTileState(tile, control, panel, !tile.classList.contains('is-open'));
                     });
                 });
+
+                const openTileForHash = () => {
+                    const hash = window.location.hash;
+                    if (!hash || hash === '#archive') return;
+
+                    const targetId = decodeURIComponent(hash.slice(1));
+                    if (!targetId) return;
+
+                    const target = document.getElementById(targetId);
+                    if (!target) return;
+
+                    const tile = target.classList.contains('tile')
+                        ? target
+                        : target.closest('.archive .tile');
+
+                    if (!tile || !tile.classList.contains('has-disclosure')) return;
+
+                    const control = tile.querySelector(':scope > .tile-header > .tile-disclosure');
+                    const panel = tile.querySelector(':scope > .tile-panel');
+                    if (!control || !panel) return;
+
+                    if (!tile.classList.contains('is-open')) {
+                        syncTileState(tile, control, panel, true);
+                    }
+
+                    window.requestAnimationFrame(() => {
+                        target.scrollIntoView({ block: 'start' });
+                    });
+                };
+
+                window.addEventListener('hashchange', openTileForHash);
+                openTileForHash();
             };
 
             initializeArchiveDisclosures();
@@ -460,24 +495,26 @@
     <!-- Toggle Button -->
     <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle theme"></button>
 
-    <main class="relative overflow-hidden px-4 pb-24 pt-10 sm:px-6 lg:px-10">
+    <main class="relative overflow-hidden px-4 pb-20 pt-8 sm:px-6 lg:px-10">
         <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[620px] bg-[radial-gradient(circle_at_14%_0%,rgba(14,116,144,0.15),transparent_44%),radial-gradient(circle_at_86%_0%,rgba(59,130,246,0.08),transparent_40%)] dark:bg-[radial-gradient(circle_at_14%_0%,rgba(59,130,246,0.15),transparent_44%),radial-gradient(circle_at_86%_0%,rgba(14,165,233,0.1),transparent_40%)]"></div>
 
-        <section id="top" aria-label="Hero" class="curated-hero mx-auto w-full max-w-6xl rounded-[2rem] border border-slate-200/90 bg-white/90 p-7 shadow-[0_22px_72px_-36px_rgba(2,6,23,0.42)] backdrop-blur-xl sm:p-11 lg:p-14 dark:border-slate-700/70 dark:bg-slate-900/76">
-            <p class="tone-kicker text-[11px] font-semibold uppercase tracking-[0.32em] text-sky-700 dark:text-sky-300">Applied AI / Robotics / Product Engineering</p>
-            <h1 class="mt-4 font-display text-5xl leading-[0.94] tracking-tight text-slate-950 sm:text-6xl lg:text-7xl dark:text-white">Branavan Selvasingham</h1>
-            <p class="mt-6 max-w-4xl text-lg leading-relaxed text-slate-700 sm:text-2xl sm:leading-relaxed dark:text-slate-200">I build real systems with AI, software, and hardware — from enterprise workflows to robotics and spatial computing.</p>
-            <p class="tone-soft mt-7 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base dark:text-slate-300">VP, Head of AI &amp; Product Engineering at Zafin.</p>
-            <div class="mt-10 flex flex-wrap gap-3">
-                <a href="#selected-work" class="inline-flex w-full items-center justify-center rounded-full border border-slate-900 bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-white dark:bg-white dark:text-slate-950">View selected work</a>
-                <a href="https://x.com/0_branavan_1" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300 bg-white/82 px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-600 dark:bg-slate-800/82 dark:text-slate-100 dark:hover:border-slate-500">Follow on X</a>
-                <a href="https://www.linkedin.com/in/branavanselvasingham" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300 bg-white/82 px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-600 dark:bg-slate-800/82 dark:text-slate-100 dark:hover:border-slate-500">LinkedIn</a>
+        <section id="top" aria-label="Hero" class="curated-hero mx-auto w-full max-w-6xl rounded-[2rem] border border-slate-200/90 bg-white/90 px-7 py-6 shadow-[0_22px_72px_-36px_rgba(2,6,23,0.42)] backdrop-blur-xl sm:px-10 sm:py-9 lg:px-12 lg:py-10 dark:border-slate-700/70 dark:bg-slate-900/76">
+            <div class="max-w-[56rem]">
+                <p class="tone-kicker text-[11px] font-semibold uppercase tracking-[0.32em] text-sky-700 dark:text-sky-300">Applied AI / Robotics / Product Engineering</p>
+                <h1 class="mt-3 font-display text-5xl leading-[0.92] tracking-tight text-slate-950 sm:text-6xl lg:text-[4.25rem] dark:text-white">Branavan Selvasingham</h1>
+                <p class="mt-5 max-w-[46rem] text-lg leading-[1.55] text-slate-700 sm:text-[1.375rem] sm:leading-[1.5] dark:text-slate-200">I build real systems with AI, software, and hardware — from enterprise workflows to robotics and spatial computing.</p>
+                <p class="tone-soft mt-5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-[0.95rem] dark:text-slate-300">VP, Head of AI &amp; Product Engineering at Zafin.</p>
+                <div class="mt-8 flex flex-wrap gap-2.5">
+                    <a href="#selected-work" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300 bg-slate-100/82 px-5 py-2 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-white/96 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-500 dark:bg-slate-800/88 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800/96">View selected work</a>
+                    <a href="https://x.com/0_branavan_1" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300/90 bg-white/42 px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:bg-white/68 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-600 dark:bg-slate-800/34 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:bg-slate-800/52">Follow on X</a>
+                    <a href="https://www.linkedin.com/in/branavanselvasingham" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300/90 bg-white/42 px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:bg-white/68 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-600 dark:bg-slate-800/34 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:bg-slate-800/52">LinkedIn</a>
+                </div>
             </div>
         </section>
 
         <section aria-label="Introduction" class="mx-auto mt-12 w-full max-w-6xl">
             <div class="curated-panel rounded-2xl border border-slate-200/85 bg-white/75 p-6 shadow-[0_16px_44px_-28px_rgba(2,6,23,0.35)] backdrop-blur-lg sm:p-8 dark:border-slate-700 dark:bg-slate-900/62">
-                <p class="text-lg font-medium leading-relaxed text-slate-800 dark:text-slate-200">My background spans enterprise AI, startup building, robotics, and spatial computing. I care about systems that hold up outside the demo.</p>
+                <p class="text-lg font-medium leading-relaxed text-slate-800 dark:text-slate-200">My background spans enterprise AI, startup building, robotics, and spatial computing. I care about systems that establish trust and reliability.</p>
             </div>
         </section>
 
@@ -488,46 +525,46 @@
                 <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
                     <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Zafin — AI &amp; Product Engineering Leadership</h3>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Leading AI and product engineering across large-scale banking software, with work spanning platform modernization, enterprise AI adoption, and AI workflows.</p>
-                    <a href="#zafin-current" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">View in archive</a>
+                    <a href="#zafin-current" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
                 </article>
                 <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
                     <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">SO-101 Robot Experiments</h3>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Hands-on exploration of embodied AI, robot control loops, and tool-using systems in the physical world.</p>
-                    <a href="#active-projects" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">View in archive</a>
+                    <a href="#so-101-robot" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
                 </article>
                 <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
                     <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Many Lives</h3>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">A simulation and agent orchestration prototype for managing multiple semi-autonomous actors in a shared world.</p>
                     <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Explores persistence, escalation, coordination, and policy-shaped behavior beyond isolated prompt-response loops.</p>
-                    <a href="#many-lives" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">View in archive</a>
+                    <a href="#many-lives" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
                 </article>
                 <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
                     <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">VisionOS / Shape of μ</h3>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Spatial computing experiments and 3D graphing work using SwiftUI and RealityKit.</p>
-                    <a href="#active-projects" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">View in archive</a>
+                    <a href="#shape-of-mu" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
                 </article>
                 <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
                     <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">IBM Achievement</h3>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Built large-scale systems used by millions and received formal technical recognition at IBM.</p>
                     <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Includes 2022 Outstanding Technical Achievement Award work.</p>
-                    <a href="#ibm-achievement" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">View in archive</a>
+                    <a href="#ibm-achievement" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
                 </article>
                 <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
                     <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Talks</h3>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Talks, panels, and appearances on banking, AI, and product engineering.</p>
                     <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Includes Microsoft and Money20/20 sessions.</p>
-                    <a href="#zafin-current" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">View in archive</a>
+                    <a href="#zafin-current" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
                 </article>
                 <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
                     <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Nimbus POS</h3>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">A bootstrapped restaurant POS platform that reached paying customers, exceeded operating costs, and exited through client/data acquisition.</p>
                     <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Built and operated from 2015 to 2018.</p>
-                    <a href="#nimbus-pos" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">View in archive</a>
+                    <a href="#nimbus-pos-overview" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
                 </article>
             </div>
         </section>
 
-        <section aria-label="Current Focus and Notes" class="mx-auto mt-16 grid w-full max-w-6xl gap-6 lg:grid-cols-2">
+        <section aria-label="Current Focus and Approach" class="mx-auto mt-16 grid w-full max-w-6xl gap-6 lg:grid-cols-2">
             <article class="curated-panel rounded-2xl border border-slate-200/85 bg-white/82 p-6 shadow-[0_12px_36px_-24px_rgba(2,6,23,0.42)] dark:border-slate-700 dark:bg-slate-900/66">
                 <h2 class="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">Current focus</h2>
                 <p class="tone-soft mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Right now I'm working on:</p>
@@ -541,12 +578,13 @@
             </article>
 
             <article class="curated-panel rounded-2xl border border-slate-200/85 bg-white/82 p-6 shadow-[0_12px_36px_-24px_rgba(2,6,23,0.42)] dark:border-slate-700 dark:bg-slate-900/66">
-                <h2 class="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">Notes</h2>
+                <h2 class="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">How I work</h2>
+                <p class="tone-soft mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">A few things that shape the work I like doing:</p>
                 <ul class="mt-4 space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
-                    <li>The model is only one part of the system. The workflow around it usually matters more.</li>
-                    <li>Useful AI systems need structure: tools, permissions, checks, visibility, and fallback paths.</li>
-                    <li>The hard part is rarely the demo. It's building something reliable enough that people keep using it.</li>
-                    <li>New capabilities matter when they turn into something real.</li>
+                    <li>I like working across product, engineering, and applied research instead of treating them as separate lanes.</li>
+                    <li>I'm usually drawn to systems problems where trust, reliability, and judgment matter as much as raw capability.</li>
+                    <li>I care about making ambitious technical work legible to the people who have to use it, review it, or depend on it.</li>
+                    <li>I tend to learn fastest by building, operating, and then tightening something into a version people can actually rely on.</li>
                 </ul>
             </article>
         </section>
@@ -562,16 +600,16 @@
 
         <div class="mx-auto mt-16 w-full max-w-6xl">
             <div class="h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-slate-700"></div>
-            <p class="mt-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Archive / Deeper Project History</p>
+            <p class="mt-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">More projects</p>
         </div>
 
-        <section id="archive" class="archive" aria-label="Archive">
-            <h2 class="section-title">Archive / More Projects</h2>
-            <p class="archive-intro">Broader project history, embedded demos, and exploratory builds.</p>
+        <section id="archive" class="archive" aria-label="Project History">
+            <h2 class="section-title">Other projects</h2>
+            <p class="archive-intro">A broader mix of projects, demos, and experiments.</p>
 
     <h2 id="active-projects" class="section-title">Active Personal Projects (2024 +)</h2>
     <div class="tiles">
-        <div class="tile recent-update">
+        <div id="so-101-robot" class="tile">
             <h3>SO-101 Robot (LeRobot)</h3>
             <p>Robotics experiments with the SO-101, including first movement tests and video.</p>
             <div class="extra-content">
@@ -588,7 +626,7 @@
                 <p><a href="https://manylives-sim.branavan.com" target="_blank" rel="noopener noreferrer">Project site</a></p>
             </div>
         </div>
-        <div class="tile">
+        <div id="shape-of-mu" class="tile">
             <h3>Vision OS App</h3>
             <p>A simple VisionOS project: a 3D graph visualizer called "Shape of μ".</p>
             <div class="extra-content">
@@ -784,7 +822,7 @@
     <!-- Nimbus POS Section -->
     <h2 id="nimbus-pos" class="section-title">Nimbus POS: My First Startup Journey (2015 - 2018)</h2>
     <div class="tiles">
-        <div class="tile">
+        <div id="nimbus-pos-overview" class="tile">
             <h3>What is Nimbus POS?</h3>
             <p>Nimbus POS was a SaaS platform for small cafes to manage orders, inventory, and customer interactions.</p>
             <div class="extra-content">
