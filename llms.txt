@@ -1,22 +1,23 @@
 # Branavan Selvasingham
 
-> Applied AI and agentic systems leader building systems that turn frontier model capability into trusted products, workflows, and production outcomes.
+> Builder focused on reliable AI systems, agent orchestration, robotics, simulation, and spatial computing.
 
 ## Hero
 
 Branavan Selvasingham  
-Applied AI and agentic systems leader
+Reliable AI systems, robotics, simulation, and spatial computing
 
-I build systems that turn frontier model capability into trusted products, workflows, and production outcomes.
+I build reliable AI systems for the real world.
 
 VP, Head of AI & Product Engineering at Zafin.  
-Builder across agentic systems, enterprise AI, robotics, and spatial computing.
+Focused on reliable agent orchestration with human oversight.
 
-## Intro
+## Core Themes
 
-I work at the intersection of applied AI, product engineering, and trusted execution.
-
-My background spans enterprise AI, startup building, robotics, and spatial computing, but the through-line is consistent: designing systems that make emerging technology useful in the real world. I'm most interested in agent-native product engineering, human+AI operating loops, and the systems required to move from demo capability to durable production value.
+- Agent orchestration: reliable agent orchestration with human oversight in enterprise workflows.
+- Robotics: embodied AI experiments with the SO-101 and real-world control loops.
+- Simulation: multi-agent worlds for coordination, escalation, and behavior over time.
+- Spatial computing: VisionOS and AR experiments around 3D interfaces and interaction.
 
 ## Contact & Links
 
@@ -28,21 +29,20 @@ My background spans enterprise AI, startup building, robotics, and spatial compu
 
 ## Selected Work
 
-### Zafin - AI & Product Engineering Leadership
-AI and product engineering leadership across large-scale banking software, focused on platform modernization, enterprise AI adoption, and agentic workflow delivery.
+### Zafin - Agent Orchestration
+AI and product engineering leadership across large-scale banking software, focused on reliable agent orchestration, human review loops, and production workflows.
 
 ### Nimbus POS
-A bootstrapped restaurant POS platform that reached paying customers, exceeded operating costs, and exited through client/data acquisition. Built and operated from 2015 to 2018.
+A bootstrapped restaurant point-of-sale platform that reached paying customers, exceeded operating costs, and exited through client/data acquisition. Built and operated from 2015 to 2018.
 
 ### SO-101 Robot Experiments
-Hands-on exploration of embodied AI, robot control loops, and tool-using systems in the physical world.
+Embodied AI experiments with the SO-101, focused on perception, control loops, and action in the physical world.
 
 ### Many Lives
-A simulation and agent orchestration prototype for managing multiple semi-autonomous actors in a shared world.
-Explores persistence, escalation, coordination, and policy-shaped behavior beyond isolated prompt-response loops.
+A multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world.
 
-### VisionOS / Shape of mu
-Spatial computing experiments and 3D graphing work using SwiftUI and RealityKit.
+### VisionOS / Shape of μ
+Spatial computing and AR experiments using VisionOS, SwiftUI, RealityKit, and 3D interfaces.
 
 ### IBM Achievement
 Built large-scale systems used by millions and received formal technical recognition at IBM, including work recognized by the 2022 Outstanding Technical Achievement Award.
@@ -54,11 +54,11 @@ Public-facing AI conversations and appearances tied to banking, AI, and product 
 
 Most of my current work is concentrated in:
 
-- Agent-native product engineering
-- Reliable AI workflows with human verification and controls
-- Turning frontier model capability into production systems
+- Trusted agent orchestration and human review loops
+- Reliable AI workflows in production settings
 - Robotics and embodied interaction
-- AI-native product ideas with real commercial leverage
+- Simulation and multi-agent systems
+- Spatial interfaces and AR experiments
 
 ## Current thinking
 
@@ -67,109 +67,92 @@ Most of my current work is concentrated in:
 - The hard part of applied AI is less the demo and more trust, reliability, and adoption in production.
 - Frontier capability matters most when it becomes durable product leverage.
 
-## Writing / thinking
+## Essays
 
-I'm more active on X. This site is where I keep selected work and occasional writeups.
+Longer-form essays live on the site as dedicated reading pages. Some may also include an audio version.
 
-- Follow on X: https://x.com/0_branavan_1
-- Essays and experiments: https://medium.com/search?q=branavan+selvasingham
+### Gravity, Magnetism, and Love
+On attraction between information systems.
+https://www.branavan.com/essays/gravity-magnetism-and-love.html
 
 ---
 
-## Archive / More Projects
+## Projects by Theme
 
-Broader project history, embedded demos, and exploratory builds.
+Grouped around the four themes above, plus some earlier work.
 
-## Active Personal Projects (2024 +)
+### Agent orchestration
 
-### SO-101 Robot (LeRobot)
-Fun robotics exploration with SO-101; first hello-world movement and video.
+#### Zafin
+Current work focused on reliable agent orchestration, human review loops, and production AI workflows in enterprise software.
 
-Update (December 2025): tested direct model control of the LeRobot SO-101 using tool calls with a gripper-mounted camera and goal loop control.
-
-Repository: https://github.com/BranavanSelvasingham/lerobot-llm-chess
-
-### Many Lives
-Many Lives is a simulation and agent orchestration prototype built around a shared world with multiple semi-autonomous actors. The goal is to move beyond single-agent chat interactions and explore how agents persist over time, accumulate context, surface competing pressures, and continue acting inside a living system.
-
-The project focuses on orchestration through attention, escalation, memory, and policy rather than direct turn-by-turn control. It sits at the intersection of simulation design, agent architecture, and human oversight for systems that need to remain legible while multiple threads stay active at once.
-
-Project site: https://manylives-sim.branavan.com
-
-### Vision OS App
-Diving into spatial computing, augmented reality (AR), and AI with a first Vision OS app: a simple 3D graph visualizer called "Shape of mu".
-
-## Currently: VP, Head of AI and Product Engineering @ Zafin
-
-### A podcast with Microsoft's Head of Banking Strategy
-Discussed the future of AI in Financial Services (and the overall Enterprise landscape) with Tyler Pichach, Head of Banking Strategy at Microsoft.
+#### Podcast with Microsoft's Head of Banking Strategy
+Conversation with Tyler Pichach about AI in financial services and enterprise software.
 Video: https://www.youtube.com/watch?v=jtcGHd4MaBc
 
-### Money 20/20 Presentation (2023)
-Presented at Money 20/20 at Microsoft's AI stage. Presented views and an early roadmap that has since been matured and executed.
+#### Money20/20 Presentation (2023)
+Presented at Money20/20 on Microsoft's AI stage, sharing an early roadmap that was later built out and executed.
 
-## Accomplishments at IBM (non-client sensitive) (2018 - 2023)
-
-### Accomplishments
+#### IBM production AI and orchestration work
 - Production AI systems built and shipped for over 20 million users.
 - 2022 Outstanding Technical Achievement Award for conversational AI orchestration work.
 
-## Past Corporate Research Projects (non-client sensitive) (2018 - 2023)
-
 #### Conversational AI Kiosk
-Kiosk with animated emotive facial expressions for engaging interaction.
+Kiosk with animated facial expressions for more responsive interaction.
 
 #### Auditable Network of Containers
 Published defensible IP for transactions between non-trusting parties using auditable networks.
 Publication: https://priorart.ip.com/IPCOM/000260415/
 
-#### Boston Dynamics Spot Simulation
-Created environmental simulations to improve robotics capabilities.
-Article: https://medium.com/learningreinforcementlearning/choosing-the-right-platform-to-begin-your-hands-on-journey-with-rl-c4110b6cd6d9
-
-#### Smart Locker
-Designed and implemented an intelligent locker system with secure access and ownership transfer flows.
-
 #### Psychological Health Assessment
-Developed AI-driven conversational tools for psychological health assessment.
+Conversational tools for structured psychological health assessment.
+
+### Robotics
+
+#### SO-101 Robot (LeRobot)
+Embodied AI experiments with the SO-101, including direct model control tests using tool calls, a gripper-mounted camera, and goal-loop control.
+Repository: https://github.com/BranavanSelvasingham/lerobot-llm-chess
 
 #### Vision-Based Robot Arm Motion
-Engineered robot arm motion systems with computer-vision-guided control and dynamic target tracking.
+Robot arm motion systems with computer-vision-guided control and dynamic target tracking.
 
-## Nimbus POS: Startup Journey (2015-2018)
+#### Robotic Conference and Vision
+Remote interaction experiment combining robotic vision and conferencing.
 
-### What is Nimbus POS?
-Nimbus POS was a SaaS platform for small cafes to manage orders, inventory, and customer interactions with predictive features.
+#### Smart Locker
+Secure physical system with ownership transfer flows and hardware/software coordination.
 
-### Key features
-- Predictive inventory management
-- Intuitive UI with minimal clicks per order
-- Canadian tax support
-- Integrated loyalty and analytics
-- Wireless printing
-- Cross-device support
+### Simulation
 
-### Achievements
-- Bootstrapped to paying customers
-- Monthly recurring revenue exceeded operating costs
-- Exited through data and client acquisition by Nown POS
+#### Many Lives
+Multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world.
+Project site: https://manylives-sim.branavan.com
 
-## Past Personal Projects (2015-2018)
+#### Boston Dynamics Spot Simulation
+Environmental simulations built to support robotics experiments with Boston Dynamics Spot.
+Article: https://medium.com/learningreinforcementlearning/choosing-the-right-platform-to-begin-your-hands-on-journey-with-rl-c4110b6cd6d9
 
-### Home Hub (Touch, Voice, Display)
-Built an integrated smart home hub combining touch, voice assistant features, custom display behavior, and gesture controls, with custom hardware and PCBs.
+### Spatial computing and interfaces
 
-### Robotic Conference and Vision
-Built a robotic vision and conferencing setup with head-tracking behavior.
+#### Shape of μ (VisionOS)
+VisionOS project exploring 3D graphing and spatial interaction.
 
-### Dynamic Retail E-Paper Labels
-Designed e-paper label systems for dynamic pricing updates, including touch capability, dual display layouts, and proximity sensor behavior.
+#### Home Hub (Touch, Voice, Display)
+Integrated home hub combining touch, voice assistant features, custom display behavior, gesture controls, and custom hardware.
 
-### Smart Surface Projection
-Created an adaptive projection setup combining a robot arm and laser pico projector.
+#### Dynamic Retail E-Paper Labels
+E-paper label system for dynamic pricing updates, including touch capability, dual display layouts, and proximity sensor behavior.
 
-### Video Transcript Analysis
-Built a web application (thegreatmind.org) for transcript handling and insight extraction from video content.
+#### Smart Surface Projection
+Projection experiment combining a robot arm and laser pico projector.
+
+### Earlier work
+
+#### Nimbus POS
+Bootstrapped SaaS point-of-sale platform for small cafes. Reached paying customers, exceeded operating costs, and exited through data and client acquisition.
+
+#### Video Transcript Analysis
+Web application (thegreatmind.org) for transcript handling and extracting useful structure from video content.
 
 ## Education
 
