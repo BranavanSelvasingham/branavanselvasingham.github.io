@@ -304,6 +304,9 @@
                     const panelId = `archive-disclosure-panel-${disclosureCount}`;
                     const heading = tile.querySelector(':scope > h3');
                     const summary = tile.querySelector(':scope > p');
+                    const previewImage = tile.dataset.previewImage || '';
+                    const previewAlt = tile.dataset.previewAlt || '';
+                    const previewPosition = tile.dataset.previewPosition || '';
                     const headingText = heading ? heading.textContent.trim() : 'Project';
                     const summaryRaw = summary
                         ? summary.textContent.replace(/\s+/g, ' ').trim()
@@ -324,6 +327,26 @@
                     control.className = 'tile-disclosure';
                     control.setAttribute('aria-expanded', 'false');
                     control.setAttribute('aria-controls', panelId);
+
+                    if (previewImage) {
+                        const preview = document.createElement('span');
+                        preview.className = 'tile-disclosure-preview';
+                        if (previewPosition) {
+                            preview.style.setProperty('--work-preview-position', previewPosition);
+                        }
+
+                        const previewImg = document.createElement('img');
+                        previewImg.src = previewImage;
+                        previewImg.alt = previewAlt;
+                        previewImg.loading = 'lazy';
+                        if (!previewAlt) {
+                            previewImg.setAttribute('aria-hidden', 'true');
+                        }
+
+                        preview.appendChild(previewImg);
+                        control.classList.add('tile-disclosure--preview');
+                        control.appendChild(preview);
+                    }
 
                     const textWrap = document.createElement('span');
                     textWrap.className = 'tile-header-text';
@@ -504,7 +527,7 @@
                 <p class="mt-5 max-w-[42rem] text-lg leading-[1.55] text-slate-700 sm:text-[1.375rem] sm:leading-[1.5] dark:text-slate-200">I build reliable AI systems for the real world.</p>
                 <p class="tone-soft mt-5 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-[0.95rem] dark:text-slate-300">Currently VP, Head of AI &amp; Product Engineering at Zafin, focused on reliable agent orchestration with human oversight.</p>
                 <div class="mt-8 flex flex-wrap gap-2.5">
-                    <a href="#selected-work" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300 bg-slate-100/82 px-5 py-2 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-white/96 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-500 dark:bg-slate-800/88 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800/96">View selected work</a>
+                    <a href="#selected-work" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300 bg-slate-100/82 px-5 py-2 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-white/96 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-500 dark:bg-slate-800/88 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800/96">View selected projects</a>
                     <a href="https://x.com/0_branavan_1" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300/90 bg-white/42 px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:bg-white/68 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-600 dark:bg-slate-800/34 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:bg-slate-800/52">Follow on X</a>
                     <a href="https://www.linkedin.com/in/branavanselvasingham" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center rounded-full border border-slate-300/90 bg-white/42 px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:bg-white/68 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:w-auto dark:border-slate-600 dark:bg-slate-800/34 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:bg-slate-800/52">LinkedIn</a>
                 </div>
@@ -535,48 +558,73 @@
             </div>
         </section>
 
-        <section id="selected-work" aria-label="Selected Work" class="mx-auto mt-16 w-full max-w-6xl">
-            <h2 class="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl dark:text-white">Selected Work</h2>
-            <p class="mt-3 max-w-4xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">A few projects and roles that show the range of work I do. Much of it clusters around agent orchestration, robotics, simulation, and spatial computing.</p>
+        <section id="selected-work" aria-label="Selected Projects" class="mx-auto mt-16 w-full max-w-6xl">
+            <h2 class="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl dark:text-white">Selected Projects</h2>
+            <p class="mt-3 max-w-4xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">A few projects that show the range of work I do across robotics, simulation, spatial computing, and product building.</p>
             <div class="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
-                    <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Zafin — Agent Orchestration</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Leading AI and product engineering across large-scale banking software, focused on reliable agent orchestration, human review loops, and production workflows.</p>
-                    <a href="#zafin-overview" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                <article class="curated-card curated-card-visual group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/90 p-0 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
+                    <div class="work-preview-frame" style="--work-preview-position: 40% center;">
+                        <img class="work-preview-image" src="assets/media/selected-work/so101-robot.jpg" alt="SO-101 robot arm reaching toward a chess pawn on a chessboard." loading="lazy">
+                    </div>
+                    <div class="curated-card-body flex flex-1 flex-col">
+                        <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">SO-101 Robot Experiments</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Embodied AI experiments with the SO-101, focused on perception, control loops, and action in the physical world.</p>
+                        <a href="#so-101-robot" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                    </div>
                 </article>
-                <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
-                    <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">SO-101 Robot Experiments</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Embodied AI experiments with the SO-101, focused on perception, control loops, and action in the physical world.</p>
-                    <a href="#so-101-robot" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                <article class="curated-card curated-card-visual group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/90 p-0 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
+                    <div class="work-preview-frame">
+                        <img class="work-preview-image" src="assets/media/selected-work/many-lives.jpg" alt="Many Lives simulation interface showing a town map and a live conversation panel." loading="lazy">
+                    </div>
+                    <div class="curated-card-body flex flex-1 flex-col">
+                        <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Many Lives</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">A multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world.</p>
+                        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Built to think through how agents behave over time, not just in isolated turns.</p>
+                        <a href="#many-lives" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                    </div>
                 </article>
-                <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
-                    <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Many Lives</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">A multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world.</p>
-                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Built to think through how agents behave over time, not just in isolated turns.</p>
-                    <a href="#many-lives" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                <article class="curated-card curated-card-visual group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/90 p-0 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
+                    <div class="work-preview-frame">
+                        <img class="work-preview-image" src="assets/media/selected-work/shape-of-mu.jpg" alt="VisionOS interface showing a colorful 3D wave chart floating in front of a lunar landscape." loading="lazy">
+                    </div>
+                    <div class="curated-card-body flex flex-1 flex-col">
+                        <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">VisionOS / Shape of μ</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Spatial computing and AR experiments using VisionOS, SwiftUI, RealityKit, and 3D interfaces.</p>
+                        <a href="#shape-of-mu" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                    </div>
                 </article>
-                <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
-                    <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">VisionOS / Shape of μ</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Spatial computing and AR experiments using VisionOS, SwiftUI, RealityKit, and 3D interfaces.</p>
-                    <a href="#shape-of-mu" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                <article class="curated-card curated-card-visual group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/90 p-0 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
+                    <div class="work-preview-frame">
+                        <img class="work-preview-image" src="assets/media/selected-work/ibm-award.png" alt="IBM 2022 Outstanding Technical Achievement Award certificate." loading="lazy">
+                    </div>
+                    <div class="curated-card-body flex flex-1 flex-col">
+                        <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">IBM Achievement</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Built large-scale systems used by millions and received formal technical recognition at IBM.</p>
+                        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Includes 2022 Outstanding Technical Achievement Award work.</p>
+                        <a href="#ibm-award" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                    </div>
                 </article>
-                <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
-                    <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">IBM Achievement</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Built large-scale systems used by millions and received formal technical recognition at IBM.</p>
-                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Includes 2022 Outstanding Technical Achievement Award work.</p>
-                    <a href="#ibm-production-ai" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                <article class="curated-card curated-card-visual group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/90 p-0 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
+                    <div class="work-preview-frame">
+                        <img class="work-preview-image" src="assets/media/selected-work/talks-money2020.jpg" alt="Speaking at Microsoft AI Lounge during Money20/20." loading="lazy">
+                    </div>
+                    <div class="curated-card-body flex flex-1 flex-col">
+                        <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Talks</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Talks, panels, and appearances on banking, AI, and product engineering.</p>
+                        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Includes Microsoft and Money20/20 sessions.</p>
+                        <a href="#money2020-talk" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                    </div>
                 </article>
-                <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
-                    <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Talks</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">Talks, panels, and appearances on banking, AI, and product engineering.</p>
-                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Includes Microsoft and Money20/20 sessions.</p>
-                    <a href="#zafin-media" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
-                </article>
-                <article class="curated-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white/90 p-6 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
-                    <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Nimbus POS</h3>
-                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">A bootstrapped restaurant point-of-sale platform that reached paying customers, exceeded operating costs, and exited through client/data acquisition.</p>
-                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Built and operated from 2015 to 2018.</p>
-                    <a href="#nimbus-pos-overview" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                <article class="curated-card curated-card-visual group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white/90 p-0 shadow-[0_14px_36px_-28px_rgba(2,6,23,0.5)] transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-[0_22px_52px_-34px_rgba(2,6,23,0.55)] dark:border-slate-700 dark:bg-slate-900/72 dark:hover:border-sky-700">
+                    <div class="work-preview-frame">
+                        <img class="work-preview-image" src="assets/media/selected-work/nimbus-pos.jpg" alt="Nimbus POS retrospective title card above a collage of cafes and product moments." loading="lazy">
+                    </div>
+                    <div class="curated-card-body flex flex-1 flex-col">
+                        <h3 class="text-xl font-semibold leading-snug text-slate-900 dark:text-white">Nimbus POS</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">A bootstrapped restaurant point-of-sale platform that reached paying customers, exceeded operating costs, and exited through client/data acquisition.</p>
+                        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Built and operated from 2015 to 2018.</p>
+                        <a href="#nimbus-pos-overview" class="curated-link mt-5 inline-flex text-sm font-semibold text-sky-700 transition group-hover:text-sky-800 dark:text-sky-300 dark:group-hover:text-sky-200">See details</a>
+                    </div>
                 </article>
             </div>
         </section>
@@ -644,7 +692,7 @@
                 <iframe data-src="https://www.youtube.com/embed/jtcGHd4MaBc" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
-        <div class="tile">
+        <div id="money2020-talk" class="tile" data-preview-image="assets/media/selected-work/talks-money2020.jpg" data-preview-alt="Speaking at Microsoft AI Lounge during Money20/20.">
             <h3>Money 20/20 Presentation (2023)</h3>
             <p>Presented at Money20/20 on Microsoft’s AI stage, sharing an early roadmap that we later built out and executed.</p>
             <div class="extra-content">
@@ -666,7 +714,7 @@
                 <p>Large-scale AI systems work at IBM that had to perform reliably in production, not just in demos.</p>
             </div>
         </div>
-        <div class="tile">
+        <div id="ibm-award" class="tile" data-preview-image="assets/media/selected-work/ibm-award.png" data-preview-alt="IBM 2022 Outstanding Technical Achievement Award certificate.">
             <h3>Outstanding Technical Achievement Award</h3>
             <p>Received IBM’s 2022 Outstanding Technical Achievement Award for work on a conversational AI orchestration system.</p>
             <div class="extra-content">
@@ -696,7 +744,7 @@
 
     <h2 id="active-projects" class="section-title">Robotics</h2>
     <div class="tiles">
-        <div id="so-101-robot" class="tile">
+        <div id="so-101-robot" class="tile" data-preview-image="assets/media/selected-work/so101-robot.jpg" data-preview-position="40% center">
             <h3>SO-101 Robot (LeRobot)</h3>
             <p>Robotics experiments with the SO-101, including first movement tests and video.</p>
             <div class="extra-content">
@@ -828,7 +876,7 @@
 
     <h2 id="corporate-research" class="section-title">Simulation</h2>
     <div class="tiles">
-        <div id="many-lives" class="tile">
+        <div id="many-lives" class="tile" data-preview-image="assets/media/selected-work/many-lives.jpg">
             <h3>Many Lives</h3>
             <p>Simulation and agent orchestration prototype for coordinating multiple semi-autonomous actors in a shared world.</p>
             <div class="extra-content">
@@ -848,7 +896,7 @@
 
     <h2 id="personal-projects" class="section-title">Spatial computing and interfaces</h2>
     <div class="tiles">
-        <div id="shape-of-mu" class="tile">
+        <div id="shape-of-mu" class="tile" data-preview-image="assets/media/selected-work/shape-of-mu.jpg">
             <h3>Shape of μ (VisionOS)</h3>
             <p>A VisionOS project exploring 3D graphing and spatial interaction.</p>
             <div class="extra-content">
@@ -994,7 +1042,7 @@
 
     <h2 id="nimbus-pos" class="section-title">Earlier work</h2>
     <div class="tiles">
-        <div id="nimbus-pos-overview" class="tile">
+        <div id="nimbus-pos-overview" class="tile" data-preview-image="assets/media/selected-work/nimbus-pos.jpg" data-preview-alt="Nimbus POS retrospective title card above a collage of cafes and product moments.">
             <h3>Nimbus POS</h3>
             <p>A SaaS platform for small cafes, built, operated, and eventually exited through client and data acquisition.</p>
             <div class="extra-content">
