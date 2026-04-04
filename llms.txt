@@ -96,16 +96,11 @@ Presented at Money20/20 on Microsoft's AI stage, sharing an early roadmap that w
 #### IBM production AI and orchestration work
 - Production AI systems built and shipped for over 20 million users.
 - 2022 Outstanding Technical Achievement Award for conversational AI orchestration work.
-
-#### Conversational AI Kiosk
-Kiosk with animated facial expressions for more responsive interaction.
+- Obfuscated certificate PDF: assets/media/selected-work/ibm-2022-outstanding-technical-achievement-award-obfuscated.pdf
 
 #### Auditable Network of Containers
 Published defensible IP for transactions between non-trusting parties using auditable networks.
 Publication: https://priorart.ip.com/IPCOM/000260415/
-
-#### Psychological Health Assessment
-Conversational tools for structured psychological health assessment.
 
 ### Robotics
 
@@ -132,10 +127,12 @@ Project site: https://manylives-sim.branavan.com
 Environmental simulations built to support robotics experiments with Boston Dynamics Spot.
 Article: https://medium.com/learningreinforcementlearning/choosing-the-right-platform-to-begin-your-hands-on-journey-with-rl-c4110b6cd6d9
 
-### Spatial computing and interfaces
+### Spatial computing
 
 #### Shape of μ (VisionOS)
 VisionOS project exploring 3D graphing and spatial interaction.
+
+### Interactive systems
 
 #### Home Hub (Touch, Voice, Display)
 Integrated home hub combining touch, voice assistant features, custom display behavior, gesture controls, and custom hardware.
@@ -146,7 +143,7 @@ E-paper label system for dynamic pricing updates, including touch capability, du
 #### Smart Surface Projection
 Projection experiment combining a robot arm and laser pico projector.
 
-### Earlier work
+### Product building
 
 #### Nimbus POS
 Bootstrapped SaaS point-of-sale platform for small cafes. Reached paying customers, exceeded operating costs, and exited through data and client acquisition.
