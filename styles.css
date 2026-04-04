@@ -667,6 +667,50 @@ iframe {
     box-shadow: 0 18px 40px -30px rgba(2, 6, 23, 0.52);
 }
 
+.essay-card-with-image {
+    overflow: hidden;
+    padding: 0;
+}
+
+.essay-card-media,
+.essay-hero-media {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--tile-background) 80%, #0f172a 20%) 0%, color-mix(in srgb, var(--tile-background) 92%, #0f172a 8%) 100%);
+}
+
+.essay-card-media {
+    aspect-ratio: 16 / 5;
+    border-bottom: 1px solid color-mix(in srgb, var(--tile-border-color) 82%, transparent);
+}
+
+.essay-hero-media {
+    margin-top: 28px;
+    aspect-ratio: 16 / 5;
+    border: 1px solid color-mix(in srgb, var(--tile-border-color) 82%, transparent);
+    border-radius: 24px;
+    box-shadow: 0 20px 48px -34px rgba(2, 6, 23, 0.62);
+}
+
+.essay-card-media img,
+.essay-hero-media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center center;
+    transition: transform 0.45s ease;
+}
+
+.essay-card-with-image:hover .essay-card-media img,
+.essay-hero:hover .essay-hero-media img {
+    transform: scale(1.03);
+}
+
+.essay-card-body {
+    padding: 22px;
+}
+
 .essay-kicker {
     margin: 0;
     font-size: 11px;
