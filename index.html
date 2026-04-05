@@ -231,22 +231,26 @@
 
                 iframe.classList.add('embed-frame');
 
+                const loadEmbed = () => {
+                    if (!iframe.getAttribute('src') && iframe.dataset.src) {
+                        iframe.setAttribute('src', iframe.dataset.src);
+                    }
+                    shell.classList.add('is-loaded');
+                    shell.querySelector('.embed-facade')?.remove();
+                };
+
                 if (!shell.querySelector('.embed-facade')) {
                     const facade = document.createElement('button');
                     facade.type = 'button';
                     facade.className = 'embed-facade';
                     facade.setAttribute('aria-label', `Load preview: ${label}`);
                     facade.innerHTML = `<span class="embed-facade-kicker">Load preview</span><span class="embed-facade-title">${label}</span>`;
-                    facade.addEventListener('click', () => {
-                        if (!iframe.getAttribute('src') && iframe.dataset.src) {
-                            iframe.setAttribute('src', iframe.dataset.src);
-                        }
-                        shell.classList.add('is-loaded');
-                        facade.remove();
-                    });
+                    facade.addEventListener('click', loadEmbed);
                     shell.prepend(facade);
                 }
 
+                iframe.dataset.loadEmbedOnOpen = 'true';
+                iframe.__loadEmbed = loadEmbed;
                 iframe.dataset.facadeReady = 'true';
             };
 
@@ -276,6 +280,9 @@
                     if (tile.classList.contains('recent-update')) {
                         tile.classList.remove('recent-update');
                     }
+                    panel.querySelectorAll('iframe[data-load-embed-on-open="true"]').forEach((iframe) => {
+                        iframe.__loadEmbed?.();
+                    });
                     if (window.twttr && typeof window.twttr.widgets?.load === 'function') {
                         window.twttr.widgets.load(panel);
                     }
@@ -894,7 +901,7 @@
         </div>
     </div>
 
-    <h2 id="interactive-systems" class="section-title">Interactive systems</h2>
+    <h2 id="interactive-systems" class="section-title">Earlier work on interactive systems</h2>
     <div class="tiles">
         <div class="tile" data-preview-image="assets/media/archive-previews/home-hub.jpg" data-preview-alt="Home hub front-panel prototype with a display reading HELLO.">
             <h3>Home Hub (Touch, Voice, Display)</h3>

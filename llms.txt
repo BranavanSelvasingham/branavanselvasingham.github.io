@@ -33,7 +33,7 @@ Focused on reliable agent orchestration with human oversight.
 AI and product engineering leadership across large-scale banking software, focused on reliable agent orchestration, human review loops, and production workflows.
 
 ### Nimbus POS
-A bootstrapped restaurant point-of-sale platform that reached paying customers, exceeded operating costs, and exited through client/data acquisition. Built and operated from 2015 to 2018.
+A bootstrapped point-of-sale platform for small cafes with inventory, low-click ordering, loyalty, analytics, Canadian tax support, and hardware workflows. Reached paying customers, exceeded operating costs, and exited through client/data acquisition. Built and operated from 2015 to 2018.
 
 ### SO-101 Robot Experiments
 Embodied AI experiments with the SO-101, focused on perception, control loops, and action in the physical world.
@@ -132,7 +132,7 @@ Article: https://medium.com/learningreinforcementlearning/choosing-the-right-pla
 #### Shape of μ (VisionOS)
 VisionOS project exploring 3D graphing and spatial interaction.
 
-### Interactive systems
+### Earlier work on interactive systems
 
 #### Home Hub (Touch, Voice, Display)
 Integrated home hub combining touch, voice assistant features, custom display behavior, gesture controls, and custom hardware.
@@ -146,10 +146,10 @@ Projection experiment combining a robot arm and laser pico projector.
 ### Product building
 
 #### Nimbus POS
-Bootstrapped SaaS point-of-sale platform for small cafes. Reached paying customers, exceeded operating costs, and exited through data and client acquisition.
+Bootstrapped SaaS point-of-sale platform for small cafes with inventory management, streamlined ordering, loyalty, analytics, Canadian tax support, and wireless-printing integrations. Reached paying customers, exceeded operating costs, and exited through data and client acquisition.
 
 #### Video Transcript Analysis
-Web application (thegreatmind.org) for transcript handling and extracting useful structure from video content.
+Web application (thegreatmind.org) for organizing long-form video artifacts, linking transcripts to specific videos, and editing subtitle text to extract useful structure from video content.
 
 ## Education
 
