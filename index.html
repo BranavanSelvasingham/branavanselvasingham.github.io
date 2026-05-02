@@ -162,11 +162,12 @@
                     const linksDisclosure = document.createElement('details');
                     linksDisclosure.className = 'tile-links-disclosure';
                     const summary = document.createElement('summary');
-                    summary.textContent = `Direct links (${links.length})`;
+                    summary.textContent = `Sources (${links.length})`;
                     const list = document.createElement('ul');
 
                     links.forEach((link) => {
                         link.classList.add('tile-direct-link');
+                        link.setAttribute('aria-label', `Open source: ${link.textContent.trim()}`);
                         const listItem = document.createElement('li');
                         listItem.appendChild(link);
                         list.appendChild(listItem);
@@ -182,12 +183,13 @@
                 linksBlock.className = 'tile-links';
                 const label = document.createElement('p');
                 label.className = 'tile-links-label';
-                label.textContent = links.length === 1 ? 'Link' : 'Links';
+                label.textContent = links.length === 1 ? 'Source' : 'Sources';
                 const list = document.createElement('div');
                 list.className = 'tile-links-list';
 
                 links.forEach((link) => {
                     link.classList.add('tile-direct-link');
+                    link.setAttribute('aria-label', `Open source: ${link.textContent.trim()}`);
                     list.appendChild(link);
                 });
 
@@ -201,7 +203,8 @@
                 const adjacentTitle = iframe.previousElementSibling?.classList.contains('frame-title')
                     ? iframe.previousElementSibling.textContent.trim()
                     : '';
-                return carouselTitle || adjacentTitle || 'Media preview';
+                const tileTitle = iframe.closest('.tile')?.querySelector(':scope > h3')?.textContent?.trim();
+                return carouselTitle || adjacentTitle || (tileTitle ? `${tileTitle} preview` : 'Media preview');
             };
 
             const prepareEmbedFacade = (iframe) => {
@@ -249,7 +252,6 @@
                     shell.prepend(facade);
                 }
 
-                iframe.dataset.loadEmbedOnOpen = 'true';
                 iframe.__loadEmbed = loadEmbed;
                 iframe.dataset.facadeReady = 'true';
             };
@@ -270,19 +272,85 @@
             const initializeArchiveDisclosures = () => {
                 let disclosureCount = 0;
                 const tiles = document.querySelectorAll('.archive .tile');
+                const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+                const finishPanelTransition = (panel, callback) => {
+                    if (panel.__tilePanelTransitionEnd) {
+                        panel.removeEventListener('transitionend', panel.__tilePanelTransitionEnd);
+                    }
+
+                    const onEnd = (event) => {
+                        if (event.target !== panel || event.propertyName !== 'height') return;
+                        panel.removeEventListener('transitionend', onEnd);
+                        panel.__tilePanelTransitionEnd = null;
+                        callback();
+                    };
+
+                    panel.__tilePanelTransitionEnd = onEnd;
+                    panel.addEventListener('transitionend', onEnd);
+                };
+
                 const syncTileState = (tile, control, panel, shouldOpen) => {
+                    if (shouldOpen) {
+                        tiles.forEach((otherTile) => {
+                            if (otherTile === tile || !otherTile.classList.contains('is-open')) return;
+
+                            const otherControl = otherTile.querySelector(':scope > .tile-header > .tile-disclosure');
+                            const otherPanel = otherTile.querySelector(':scope > .tile-panel');
+                            if (otherControl && otherPanel) {
+                                syncTileState(otherTile, otherControl, otherPanel, false);
+                            }
+                        });
+                    }
+
                     tile.classList.toggle('is-open', shouldOpen);
                     control.setAttribute('aria-expanded', String(shouldOpen));
-                    panel.hidden = !shouldOpen;
+
+                    if (prefersReducedMotion) {
+                        panel.hidden = !shouldOpen;
+                        panel.style.height = '';
+                        panel.classList.toggle('is-revealed', shouldOpen);
+                    } else if (shouldOpen) {
+                        panel.hidden = false;
+                        panel.classList.remove('is-collapsing');
+                        panel.classList.add('is-expanding');
+                        panel.style.height = '0px';
+                        panel.style.opacity = '0';
+
+                        window.requestAnimationFrame(() => {
+                            panel.style.height = `${panel.scrollHeight}px`;
+                            panel.style.opacity = '';
+                        });
+
+                        finishPanelTransition(panel, () => {
+                            panel.classList.remove('is-expanding');
+                            panel.classList.add('is-revealed');
+                            panel.style.height = '';
+                            panel.style.opacity = '';
+                        });
+                    } else {
+                        panel.classList.remove('is-expanding', 'is-revealed');
+                        panel.classList.add('is-collapsing');
+                        panel.style.height = `${panel.scrollHeight}px`;
+
+                        window.requestAnimationFrame(() => {
+                            panel.style.height = '0px';
+                            panel.style.opacity = '0';
+                        });
+
+                        finishPanelTransition(panel, () => {
+                            panel.hidden = true;
+                            panel.classList.remove('is-collapsing');
+                            panel.style.height = '';
+                            panel.style.opacity = '';
+                        });
+                    }
 
                     if (!shouldOpen) return;
 
                     if (tile.classList.contains('recent-update')) {
                         tile.classList.remove('recent-update');
                     }
-                    panel.querySelectorAll('iframe[data-load-embed-on-open="true"]').forEach((iframe) => {
-                        iframe.__loadEmbed?.();
-                    });
                     if (window.twttr && typeof window.twttr.widgets?.load === 'function') {
                         window.twttr.widgets.load(panel);
                     }
@@ -318,9 +386,7 @@
                     const summaryRaw = summary
                         ? summary.textContent.replace(/\s+/g, ' ').trim()
                         : '';
-                    const summaryText = summaryRaw.length > 220
-                        ? `${summaryRaw.slice(0, 217)}...`
-                        : summaryRaw;
+                    const summaryText = summaryRaw;
 
                     if (heading) heading.remove();
                     if (summary) summary.remove();
@@ -393,7 +459,20 @@
 
                 const openTileForHash = () => {
                     const hash = window.location.hash;
-                    if (!hash || hash === '#archive') return;
+                    if (!hash) return;
+
+                    if (hash === '#archive') {
+                        tiles.forEach((tile) => {
+                            if (!tile.classList.contains('is-open')) return;
+
+                            const control = tile.querySelector(':scope > .tile-header > .tile-disclosure');
+                            const panel = tile.querySelector(':scope > .tile-panel');
+                            if (control && panel) {
+                                syncTileState(tile, control, panel, false);
+                            }
+                        });
+                        return;
+                    }
 
                     const targetId = decodeURIComponent(hash.slice(1));
                     if (!targetId) return;
@@ -416,7 +495,10 @@
                     }
 
                     window.requestAnimationFrame(() => {
-                        target.scrollIntoView({ block: 'start' });
+                        target.scrollIntoView({
+                            block: 'start',
+                            behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                        });
                     });
                 };
 
@@ -708,11 +790,7 @@
             <h3>Money 20/20 Presentation (2023)</h3>
             <p>Presented at Money20/20 on Microsoft’s AI stage, sharing an early roadmap that we later built out and executed.</p>
             <div class="extra-content">
-                <iframe 
-                    data-src="https://drive.google.com/file/d/1JF3J6AY9h4tm19xYiLUDzLOteWxytd-t/preview" 
-                    frameborder="0" 
-                    allowfullscreen>
-                </iframe>
+                <p><a href="https://drive.google.com/file/d/1JF3J6AY9h4tm19xYiLUDzLOteWxytd-t/view?usp=share_link" target="_blank">Open presentation source</a></p>
             </div>
         </div>
     </div>

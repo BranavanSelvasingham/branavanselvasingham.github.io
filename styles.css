@@ -123,6 +123,7 @@ body {
 .tiles {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    align-items: start;
     gap: 20px;
     margin: 16px 0 10px;
 }
@@ -136,13 +137,13 @@ body {
     padding: 16px;
     box-shadow: 0 12px 26px -24px rgba(2, 6, 23, 0.5);
     color: inherit;
-    transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.2s ease;
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.26s ease;
     scroll-margin-top: 14px;
     overflow: hidden;
 }
 
 .tile:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     background-color: color-mix(in srgb, var(--tile-background) 82%, #ecf3ff);
     box-shadow: 0 18px 34px -30px rgba(2, 6, 23, 0.62);
 }
@@ -180,11 +181,15 @@ body {
     justify-content: space-between;
     gap: 14px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tile-disclosure:hover {
     background-color: color-mix(in srgb, var(--tile-background) 82%, #ecf3ff);
+}
+
+.tile-disclosure:active {
+    transform: scale(0.995);
 }
 
 .tile-disclosure--preview {
@@ -235,7 +240,7 @@ body {
     color: var(--muted-text-color);
     font-size: 15px;
     flex-shrink: 0;
-    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
 .tile.is-open {
@@ -254,6 +259,7 @@ body {
     transform: rotate(180deg);
     color: var(--text-color);
     border-color: color-mix(in srgb, var(--accent) 45%, var(--tile-border-color));
+    background: color-mix(in srgb, var(--tile-background) 80%, #ecf3ff);
 }
 
 .tile-panel {
@@ -262,10 +268,22 @@ body {
     display: grid;
     gap: 14px;
     background: color-mix(in srgb, var(--tile-background) 94%, #f8fbff);
+    overflow: hidden;
+    transform-origin: top;
+    transition: height 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease, transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tile-panel[hidden] {
     display: none !important;
+}
+
+.tile-panel.is-expanding,
+.tile-panel.is-collapsing {
+    transform: translateY(-4px);
+}
+
+.tile-panel.is-revealed {
+    overflow: visible;
 }
 
 .tile-panel > p {
@@ -313,20 +331,47 @@ body {
     position: absolute;
     inset: 0;
     border: 0;
-    background: linear-gradient(150deg, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.3) 48%, rgba(15, 23, 42, 0.15) 100%);
+    background:
+        radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--accent) 18%, transparent) 0 84px, transparent 85px),
+        linear-gradient(150deg, color-mix(in srgb, var(--tile-background) 82%, #0f172a) 0%, color-mix(in srgb, var(--tile-background) 72%, #0f172a) 100%);
     color: #f8fafc;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: 4px;
-    padding: 14px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 18px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.embed-facade::before {
+    content: "▶";
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    padding-left: 4px;
+    border: 1px solid rgba(226, 232, 240, 0.38);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 72%, #ffffff);
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+    box-shadow: 0 16px 32px -18px rgba(2, 6, 23, 0.82);
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease;
 }
 
 .embed-facade:hover {
-    background: linear-gradient(150deg, rgba(15, 23, 42, 0.65) 0%, rgba(15, 23, 42, 0.36) 52%, rgba(15, 23, 42, 0.16) 100%);
+    background:
+        radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--accent) 24%, transparent) 0 90px, transparent 91px),
+        linear-gradient(150deg, color-mix(in srgb, var(--tile-background) 78%, #0f172a) 0%, color-mix(in srgb, var(--tile-background) 68%, #0f172a) 100%);
+}
+
+.embed-facade:hover::before {
+    transform: scale(1.04);
+    box-shadow: 0 18px 38px -16px rgba(2, 6, 23, 0.9);
 }
 
 .embed-facade-kicker {
@@ -342,16 +387,16 @@ body {
     font-weight: 600;
     color: #f8fafc;
     max-width: 100%;
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-wrap: balance;
 }
 
 .tile-links {
     border: 1px solid color-mix(in srgb, var(--tile-border-color) 84%, transparent);
-    border-radius: 10px;
-    padding: 10px 12px;
-    background: color-mix(in srgb, var(--tile-background) 90%, #f1f5f9);
+    border-radius: 12px;
+    padding: 12px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--tile-background) 92%, #f1f5f9) 0%, color-mix(in srgb, var(--tile-background) 86%, #e0f2fe) 100%);
 }
 
 .tile-links-label {
@@ -372,27 +417,52 @@ body {
 .tile-direct-link {
     display: inline-flex;
     align-items: center;
+    gap: 7px;
     border: 1px solid var(--tile-border-color);
     border-radius: 999px;
-    padding: 6px 10px;
+    padding: 7px 11px 7px 12px;
     font-size: 13px;
     line-height: 1.2;
     color: var(--accent);
     background: color-mix(in srgb, var(--tile-background) 92%, transparent);
     text-decoration: none;
+    box-shadow: 0 7px 16px -14px rgba(2, 6, 23, 0.62);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.tile-direct-link::after {
+    content: "↗";
+    width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    font-size: 11px;
+    line-height: 1;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
 }
 
 .tile-direct-link:hover {
     text-decoration: none;
     border-color: color-mix(in srgb, var(--accent) 35%, var(--tile-border-color));
     background: color-mix(in srgb, var(--tile-background) 85%, #dbeafe);
+    box-shadow: 0 10px 22px -16px rgba(2, 6, 23, 0.68);
+    transform: translateY(-1px);
+}
+
+.tile-direct-link:hover::after {
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    transform: translate(1px, -1px);
 }
 
 .tile-links-disclosure {
     border: 1px solid color-mix(in srgb, var(--tile-border-color) 84%, transparent);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 0;
-    background: color-mix(in srgb, var(--tile-background) 90%, #f1f5f9);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--tile-background) 92%, #f1f5f9) 0%, color-mix(in srgb, var(--tile-background) 86%, #e0f2fe) 100%);
+    overflow: hidden;
 }
 
 .tile-links-disclosure > summary {
@@ -401,10 +471,15 @@ body {
     font-size: 13px;
     font-weight: 600;
     color: var(--title-color);
-    padding: 10px 12px;
+    padding: 11px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: background-color 0.2s ease;
+}
+
+.tile-links-disclosure > summary:hover {
+    background: color-mix(in srgb, var(--tile-background) 84%, #dbeafe);
 }
 
 .tile-links-disclosure > summary::-webkit-details-marker {
@@ -424,16 +499,15 @@ body {
 
 .tile-links-disclosure > ul {
     margin: 0;
-    padding: 0 12px 12px 30px;
+    padding: 0 12px 12px;
     display: grid;
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 8px;
+    list-style: none;
 }
 
 .tile-links-disclosure .tile-direct-link {
-    border: 0;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
+    width: fit-content;
     font-size: 13px;
 }
 
@@ -536,29 +610,31 @@ body.dark-mode .dark-mode-toggle:hover {
 }
 
 .carousel-track-container {
-    overflow-x: auto;
+    overflow: hidden;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     display: flex;
     position: relative;
     height: auto;
-    padding: 0 40px;
+    padding: 0;
     scroll-behavior: smooth;
 }
 
 .carousel-track {
     display: flex;
-    gap: 20px;
+    gap: 0;
     height: auto;
     transition: transform 0.3s ease-in-out;
+    width: 100%;
 }
 
 .carousel-slide {
     scroll-snap-align: start;
     flex-shrink: 0;
     height: auto;
-    width: calc(100% - 20px);
+    width: 100%;
+    padding: 0 42px;
     display: flex;
     flex-direction: column;
     justify-content: center;
