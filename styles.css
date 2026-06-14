@@ -67,6 +67,11 @@ body {
     box-shadow: none;
 }
 
+.work-preview-frame:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent) 72%, white);
+    outline-offset: 3px;
+}
+
 .work-preview-image,
 .tile-disclosure-preview img {
     width: 100%;
