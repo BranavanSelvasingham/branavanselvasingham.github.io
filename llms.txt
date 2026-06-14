@@ -39,7 +39,7 @@ A bootstrapped point-of-sale platform for small cafes with inventory, low-click 
 Embodied AI experiments with the SO-101, focused on perception, control loops, and action in the physical world.
 
 ### Many Lives
-A multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world.
+A multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world. It is also being built through a Codex-based agent-loop workflow with recurring gap/alignment review, next-step planning, thread delegation, and regression checks.
 
 ### VisionOS / Shape of μ
 Spatial computing and AR experiments using VisionOS, SwiftUI, RealityKit, and 3D interfaces.
@@ -120,7 +120,7 @@ Secure physical system with ownership transfer flows and hardware/software coord
 ### Simulation
 
 #### Many Lives
-Multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world.
+Multi-agent simulation exploring coordination, escalation, and persistent behavior in a shared world. Built through a Codex-based agent-loop workflow with recurring gap/alignment review, next-step planning, thread delegation, and regression checks.
 Project site: https://manylives-sim.branavan.com
 
 #### Boston Dynamics Spot Simulation
